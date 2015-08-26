@@ -1,0 +1,78 @@
+<section class="redGradient">
+
+    <header class="z100 darkerRedBkr" id="headerOnPage">
+        <img class="h70 left" alt="Small Change Application Logo" src="img/svgs/whiteSmallChangeLogoNoTxt.svg">
+
+        <h1 class="transparent">Your Savings Goal</h1>
+
+        <img id="navBtn" class="navBtn h70 right" alt="Small Change Application Logo" src="img/svgs/whiteHambergerMenuIcon.svg">
+    </header>
+
+    <section id="chooseChallengeSection">
+        <h1>Choose your small Challenge</h1>
+
+        <!--To be added dynamically through Javascript-->
+
+        <div id="chooseChallenge">
+            <h2>Choose Your Small Change</h2>
+            <div class="leftNm">
+                
+
+                <a href="../www/coffee.html" id="coffee" class="circle bkrWhite userIndividualChallengesSection">
+                    <img id="challengeImage" class="" alt="" src="img/svgs/userChallanges/coffeeLightBlue.svg">
+                </a>
+
+                <a id="biking" class="circle bkrWhite userIndividualChallengesSection">
+                    <img id="challengeImage" class="" alt="" src="img/svgs/userChallanges/bikingLightBlue.svg">
+                </a>
+            </div>
+            <div class="rightNm">
+                <a id="lunch" class="circle bkrWhite userIndividualChallengesSection">
+                    <img id="challengeImage" class="" alt="" src="img/svgs/userChallanges/lunchLightBlue.svg">
+                </a>
+
+                <a id="ownChallegne" class="circle bkrWhite userIndividualChallengesSection">Other</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="customChallengeSection">
+        <h2 class="transparent">Add your own challenge</h2>
+
+        <form id="customChallengeDescriptionForm">
+            <img id="customChallengeImage" class="" alt="" src="">
+
+            <input type="text" id="newChallengeName" value="Name of Challenge">
+
+            <select>
+                <option value="category">Category</option>
+                <option value="drinks">Drinks</option>
+                <option value="food">Food</option>
+                <option value="example">example</option>
+                <option value="example">example</option>
+            </select>
+
+            <input type="file" id="newChallengeImage" value="Add Picture">
+
+            <input id="customChallengeSubmitButton" type="submit" value="Submit">
+        </form>
+    </section>
+
+    <!--To be added dynamically through Javascript-->
+
+    <section id="challengeDescriptionModule">
+        <h2 class="transparent"><!--Info from Server--></h2>
+
+        <form id="challengeDescriptionForm">
+            <img class="" id="" alt="" src="">
+            <!--img info correspoding with what what selected eg. coffee-->
+            <p></p>
+            <!--p info correspoding with what what selected eg. coffee-->
+            <input type="text" id="savingsAmount" value="$$$">
+
+            <p>Is how much I will be saving each time.</p>
+
+            <input id="submitButton" type="submit" value="Take Challenge">
+        </form>
+    </section>
+</section>

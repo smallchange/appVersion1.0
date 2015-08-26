@@ -1,0 +1,23 @@
+// JSON Document
+{"code":0, "message":"Success", "text":"Did you know?", "fr_text": "Savez-vous que ", "did_you_know":
+{"id":1, "statement":"you should record all of your spending so you know where your money goes and where you can cut spending. Spending $2.50 a day on coffee costs you $912.50 a year.", 
+"id":2, "statement":"you should record all of your spending so you know where your money goes and where you can cut spending. spending $2.50 a day on coffee costs you $912.50 a year.",
+"id":3, "statement":"to reach your financial goals, you should include them and build saving for them into your budget. It is best to divide your expenses into two categories: things you need, such as groceries, and things you want, such as tickets to a concert.", 
+"id":4, "statement":"to better manager your debt, list all your debts and the interest rate you are paying on each of them and track your progress in paying them off. You should pay more than the minimum payment on bills whenever you can.",
+"id":5, "statement":"even a small increase in payments can make a big difference in the amount of interest you pay and how long it takes to pay off your debts. A household budget is a good first step in managing your money wisely.",
+"id":6, "statement":"research shows that having a budget, and following it, helps keep your spending under control. Tracking expenses and budgeting effectively is essential for living within your means and feeling in control of your financial life.",
+"id":7, "statement":"getting behind on your bill payments will cost you more money and can affect your credit rating. Before signing a rental agreement, you should  compare your income with your current or planned expenses and make sure the rent payments fit comfortably into your budget.", 
+"id":8, "statement":"responsible borrowing can help you build a good credit history, but using credit to spend beyond your means is a dangerous habit. Before getting more credit or a loan, look at how you can fit repaying the money into your budget.",
+"id":9, "statement":"Keeping track of your money and knowing where it goes is important to keeping  your finances under control.",  
+"id":10, "statement":"You can build a good credit history by always making bill and loan payments on time and paying at least the minimum required. It is important to stay informed and make decisions about finances that are right for you, as well as asking for help if needed.",
+"id":11, "statement":"Having the knowledge, skills and confidence in your personal finances, will help you make sound financial decisions. If you are equipped with financial knowledge, skills and confidence you are  better able to make day-to-day choices on how to spend your money.", 
+"id":12, "statement":"Your credit rating, how much you borrow, and how long you take to repay a loan could affect the amount of interest that you pay. Making late payments on loans and debts can hurt your credit rating.  Always try to pay by the due date and make at least the minimum payment.", 
+"id":13, "statement":"A credit report is a loan and bill payment history. It's a good idea to check your credit report at least once a year. You can be charged extra fees when using an ATM that is not owned by your financial institution.", 
+"id":14, "statement":"You may be taxed on interest earned from a savings account.  However, some savings vehicles, such as RRSPs, RESPs, and TFSAs, can help you reduce", 
+"id":15, "statement":"a benefit of being more financially literate - control your financial future a benefit of being more financially literate - achieve your life goals", 
+"id":16, "statement":"a benefit of being more financially literate - provide for yourself and your family a benefit of being more financially literate - be a smart consumer", 
+"id":17, "statement":"a benefit of being more financially literate - reduce financial stress. A budget is a plan that helps you manage your money and avoid getting into financial trouble.", 
+"id":18, "statement":"A credit score is a three-digit number that is calculated using a mathematical formula based on the information in your credit report.  In Canada, a credit score ranges between 300 and 900 points. Protect yourself from fraud - check your statements each month to ensure that the transactions that appear were made by you."
+}
+}
+}

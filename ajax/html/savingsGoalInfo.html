@@ -1,0 +1,26 @@
+<header class="z100 darkerBlueBkr" id="headerOnPage">
+    <img class="h70 left" alt="Small Change Application Logo" src="img/svgs/whiteSmallChangeLogoNoTxt.svg">
+
+    <h1 class="transparent">Your Savings Goal</h1>
+
+    <img id="navBtn" class="navBtn h70 right" alt="Small Change Application Logo" src="img/svgs/whiteHambergerMenuIcon.svg">
+</header>
+
+<section class="blueBkr" id="savingsGoalSection">
+    <form class="h50w100" id="savingsGoalForm">
+        <p class="txt2rem">I am saving for:</p>
+        <input id="goalName" class="savingsGoalName" type="text" name="savingsGoalName" placeholder="Your Item">
+
+        <div class="h50w43 bkrTwoColors borderRadius left">
+            <input id="goalPrice" class="specialInput " type="text" name="savingsGoalDollarValue" placeholder="$" pattern="([1-9])+(?:-?\d){4,}">
+            <p class="bottom blueColor">Cost</p>
+        </div>
+
+        <div class="h50w43 bkrTwoColors borderRadius right">
+            <input id="deadline" class="specialInput" type="date" name="savingsGoalDeadline">
+            <p class="bottom blueColor">Deadline</p>
+        </div>
+
+        <input id="savingsGoalSubmitBtn" class="borderRadius" type="submit" value="Save Goal">
+    </form>
+</section>

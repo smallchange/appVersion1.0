@@ -1,0 +1,18 @@
+{
+    "signUpOptions": [{
+        "h2": "Sign Up for a Small Change",
+        "imgSrc": "img/svgs/whiteSmallChangeLogoNoTxt.svg",
+        "imgAlt": "Small Change App Logo",
+        
+        "a": [{
+            "signUpSocail": "Socail Media",
+            "signUp": "Sign Up",
+            "accountLoginLink": "Have an account? Log in",
+            "termsOfService": "Terms of Service",
+            "privacyPolicy": "Privacy Policy"
+        }],
+        
+        "p": "By proceeding you agree to Small Change's",
+        "newIdToSet": "dynamicIdToSet" 
+    }]
+}

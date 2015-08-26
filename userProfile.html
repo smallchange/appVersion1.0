@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Small Change helps you save money and do good in your community.">
+    <meta name="author" content="United Way">
+    <!-- Mobile Friendly -->
+    <meta name="handheldfriendly" content="true">
+    <meta name="mobileoptimized" content="240">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+    <title>User Profile</title>
+    <link href="css/index.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <header class="z100 darkerBlueBkr" id="headerOnPage">
+        <img class="h70 left" alt="Small Change Application Logo" src="img/svgs/whiteSmallChangeLogoNoTxt.svg">
+
+        <h1 id="savingsGoalDollarValue" class="">
+            <!--To be changed dynamically through Javascript-->
+        </h1>
+
+        <img class="h70 right" alt="Small Change Application Logo" src="img/svgs/whiteHambergerMenuIcon.svg">
+    </header>
+
+    <aside class="navWrap z0" data-state="closed">
+        <nav class="button redGradient">
+            <a href="../www/index.html" data-role="link">My Challanges</a>
+            <a href="../www/savingsGoal.html" data-role="link">My Goal</a>
+            <a href="../www/userProfile.html" data-role="link">My Profile</a>
+            <a href="#" data-role="link">My Rewards</a>
+            <a href="#" data-role="link">Help Me</a>
+        </nav>
+    </aside>
+
+    <section class="bkrGrey" id="profile">
+        <img src="img/svgs/profile.svg" class="wh50 circleCrop">
+
+
+        <div id="info">
+            <p>Name: <span id="name">Hassan Saad</span>
+            </p>
+            <p></p>
+
+            <p>Email: <span id="email">hscd@gmail.com</span>
+            </p>
+            
+            <p>Age Range: <span id="age">16-25</span></p>
+        </div>
+
+        <input class="borderRadius txt2rem" id="resetUser" type="submit" value="Reset Info">
+
+    </section>
+</body>
+
+</html>
