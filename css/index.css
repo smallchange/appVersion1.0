@@ -1,0 +1,860 @@
+/*-----------------------mainLayout & classes-----------------------*/
+
+* {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body section {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+/*-----------linkedFonts-----------*/
+
+@font-face {
+    font-family: 'Avenir-Book';
+    src: url('../fonts/AvenirLTStd-Book.otf');
+}
+
+@font-face {
+    font-family: 'Avenir-Light';
+    src: url('../fonts/AvenirLTStd-Light.otf');
+}
+
+@font-face {
+    font-family: 'Avenir-Black';
+    src: url('../fonts/AvenirLTStd-Black.otf');
+}
+
+@font-face {
+    font-family: 'SantJoanDespi-Regular';
+    src: url('../fonts/SantJoanDespi-Regular.otf');
+}
+/*-----------General CSS-----------*/
+
+p {
+    font-family: 'Avenir-Light', sans-serif;
+    text-align: center;
+    color: white;
+    width: 80%;
+    margin: 0 10%;
+}
+
+a,
+a:visited,
+a:active {
+    color: black;
+    text-decoration: underline;
+}
+
+.button a,
+.button a:visited,
+.button a:active {
+    display: inline-block;
+    color: #005ca9;
+    background-color: #fff;
+    border-radius: 50px;
+    font-family: 'Avenir-Book', sans-serif;
+    font-size: 1.25rem;
+    text-align: center;
+    text-transform: capitalize;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    margin: 0 15% 3%;
+    width: 70%;
+}
+
+.blueButton a,
+.blueButton a:visited,
+.blueButton a:active {
+    color: #fff;
+    background: #005ca9;
+}
+
+.circleCrop {
+    -webkit-clip-path: circle(40% at 50% 50%);
+    clip-path: circle(40% at 50% 50%);
+    width: 80%;
+    margin: 3rem 10% 1rem;
+}
+
+.specialInput {
+    width: 95%;
+    margin: 2.5%;
+    font-size: 5rem;
+    font-family: 'Avenir-Book', cursive;
+    text-align: center;
+    color: #d5dcef;
+    border: none;
+    position: absolute;
+    top: 20%;
+}
+
+.specialInput[type="date"] {
+    font-size: 1rem;
+}
+
+.opaqueBlackBackground {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+}
+/*-----------Rotating Slides-----------*/
+
+#slidesWrap {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.dynamicContent {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+#slideNegative[data-state="none"] {
+    z-index: 0;
+    left: -100%;
+}
+
+#slideZero[data-state="none"] {
+    z-index: 10;
+}
+
+#slidePositive[data-state="none"] {
+    z-index: 20;
+    left: 100%;
+}
+
+.next,
+.prev {
+    font-size: 2rem;
+    padding: 1rem;
+}
+
+/*-----------backgroundColours-----------*/
+
+.redGradient {
+    background: -webkit-radial-gradient(#DD1F26 30%, #D03238 90%);
+    /* Safari 5.1 to 6.0 */
+    
+    background: -o-radial-gradient(#DD1F26 30%, #D03238 90%);
+    /* For Opera 11.6 to 12.0 */
+    
+    background: -moz-radial-gradient(#DD1F26 30%, #D03238 90%);
+    /* For Firefox 3.6 to 15 */
+    
+    background: radial-gradient(#DD1F26 30%, #D03238 90%);
+    /* Standard syntax */
+}
+
+.blueGradient {
+    background: -webkit-radial-gradient(#005EAB 30%, #005CB9 90%);
+    /* Safari 5.1 to 6.0 */
+    
+    background: -o-radial-gradient(#005EAB 30%, #005CB9 90%);
+    /* For Opera 11.6 to 12.0 */
+    
+    background: -moz-radial-gradient(#005EAB 30%, #005CB9 90%);
+    /* For Firefox 3.6 to 15 */
+    
+    background: radial-gradient(#005EAB 30%, #005CB9 90%);
+    /* Standard syntax */
+}
+
+.bkrGrey {
+    background: #e5e5e5;
+}
+
+.bkrWhite {
+    background: #ffffff;
+}
+
+.darkerBlueBkr {
+    background: #0a66a1;
+}
+
+.blueBkr {
+    background: #0f79be;
+}
+
+.lightBlueColor {
+    color: #729dd2;
+}
+
+.lightBlueBkr {
+    background: #729dd2;
+}
+
+.darkerRedBkr {
+    background: #971115;
+}
+
+.bkrTwoColors {
+    background: linear-gradient(to bottom, #ffffff 85%, #e8edf0 15%);
+    background-repeat: no-repeat;
+}
+
+.bkrThreeColors {
+    background: linear-gradient(to bottom, #e8edf0 0%, #fff 85%, #e8edf0 15%);
+    background-repeat: no-repeat;
+}
+
+.blueColor {
+    color: #0f79be;
+}
+/*-----------Z-Index & Positioning-----------*/
+
+.z100 {
+    z-index: 100;
+}
+
+.z90 {
+    z-index: 90;
+}
+
+.z95 {
+    z-index: 95;
+}
+
+.z80 {
+    z-index: 80;
+}
+
+.z70 {
+    z-index: 70;
+}
+
+.z60 {
+    z-index: 60;
+}
+
+.z50 {
+    z-index: 50;
+}
+
+.z0 {
+    z-index: 0;
+}
+
+.top40 {
+    top: 40%;
+}
+
+.left {
+    float: left;
+    margin-left: 5%;
+}
+
+.right {
+    float: right;
+    margin-right: 5%;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 1%;
+}
+
+.txtSize1-25 {
+    font-size: 1.25rem;
+}
+
+.txt2rem {
+    font-size: 2rem;
+}
+
+.transparent {
+    height: 0;
+    margin: 0;
+    color: transparent;
+}
+
+[data-state="right"] {
+    left: 0%;
+    -webkit-animation: right 750ms 1 ease-in-out;
+    animation: right 750ms 1 ease-in-out;
+}
+
+@-webkit-keyframes right {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: 0%;
+    }
+}
+
+@keyframes right {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: 0%;
+    }
+}
+
+[data-state="hideRight"] {
+    left: 100%;
+    -webkit-animation: hideRight 750ms 1 ease-in-out;
+    animation: hideRight 750ms 1 ease-in-out;
+}
+
+@-webkit-keyframes hideRight {
+    0% {
+        left: 0%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes hideRight {
+    0% {
+        left: 0%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+[data-state="left"] {
+    left: -100%;
+    -webkit-animation: left 750ms 1 ease-in-out;
+    animation: left 750ms 1 ease-in-out;
+}
+
+@-webkit-keyframes left {
+    0% {
+        left: 0%;
+    }
+    100% {
+        left: -100%;
+    }
+}
+
+@keyframes left {
+    0% {
+        left: 0%;
+    }
+    100% {
+        left: -100%;
+    }
+}
+/*-----------Height & Width-----------*/
+
+.hw100 {
+    height: 100%;
+    width: 100%;
+}
+
+.hw90 {
+    height: 95%;
+    width: 90%;
+    margin: 5%;
+    border-radius: 15px;
+}
+
+.hw50 {
+    height: 50%;
+    width: 50%;
+    margin: 5% 25% 0;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.h5 {
+    height: 5%;
+}
+
+.h90w100 {
+    height: 90%;
+    width: 100%;
+}
+
+.hw25 {
+    height: 25%;
+    width: 25%;
+    margin: 5% 37.5% 0;
+}
+
+.h50w100 {
+    height: 50%;
+    width: 100%;
+    margin: 10% 0%;
+}
+
+.h50w43 {
+    height: 50%;
+    width: 43%;
+}
+
+.h70 {
+    height: 70%;
+}
+/*-----------Shapes-----------*/
+
+.borderRadius {
+    border-radius: 15px;
+}
+
+.levelsWrap {
+    width: 85%;
+    margin: 1rem 7.5% 0.5rem;
+}
+
+.circle {
+    width: 65%;
+    height: 40%;
+    margin: 1rem 17.5%;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}
+
+.circleSmall {
+    width: 20%;
+    height: 12%;
+    background: red;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    position: absolute;
+    top: 5%;
+    right: 10%;
+}
+/*-----------Header and Nav-----------*/
+
+header {
+    height: 8%;
+    width: 100%;
+    position: absolute;
+    bottom: 0%;
+}
+
+aside {
+    position: absolute;
+    right: 100%;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+nav {
+    height: 100%;
+    padding: 50% 0;
+}
+
+header img {
+    margin: 0 !important;
+    padding: 2% 3%;
+}
+
+.navWrap {
+    left: -100%;
+}
+
+aside[data-state="closed"] {
+    z-index: 0;
+    right: 100%;
+    -webkit-animation: closed 750ms 1 ease-in-out;
+    animation: closed 750ms 1 ease-in-out;
+}
+
+@-webkit-keyframes closed {
+    0% {
+        right: 100%;
+    }
+    100% {
+        right: 0%;
+    }
+}
+
+@keyframes closed {
+    0% {
+        right: 0%;
+    }
+    100% {
+        right: 100%;
+    }
+}
+
+aside[data-state="open"] {
+    z-index: 10;
+    right: 100%;
+    -webkit-animation: open 750ms 1 ease-in-out;
+    animation: open 750ms 1 ease-in-out;
+}
+
+@-webkit-keyframes open {
+    0% {
+        right: 100%;
+    }
+    100% {
+        right: 0%;
+    }
+}
+
+@keyframes open {
+    0% {
+        right: 100%;
+    }
+    100% {
+        right: 0%;
+    }
+}
+/*-----------------------index.html-----------------------*/
+
+#pageA,
+#pageB,
+#pageC {
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+}
+
+#pageA {
+    left: 0;
+    background: green;
+}
+
+#pageB,
+#pageC {
+    left: -100%;
+}
+
+#modal {
+    overflow: scroll;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#modal[data-state="none"] {
+    display: none;
+}
+
+.legalInfo,
+.legalInfoV2 {
+    position: absolute;
+    font-size: 0.9rem;
+    bottom: 5%;
+    color: #fff;
+}
+
+.legalInfoV2 {
+    color: #000;
+    bottom: 20%;
+}
+/*-----------languageSection-----------*/
+
+#languageSection p {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    width: 100%;
+    margin: 0 0;
+}
+/*-----------introSection-----------*/
+
+h2 {
+    font-family: 'Avenir-Black', cursive;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+#transitionLinksWrap {
+    position: absolute;
+    width: 100%;
+    height: 10%;
+    bottom: 10%;
+}
+
+.transitionLinksWrap *:first-child {
+    margin-left: 33%;
+}
+
+.emptyWhiteCircle {
+    background: url(../img/svgs/emptyWhiteCircle.svg) no-repeat center center;
+}
+
+.whiteCircle {
+    background: url(../img/svgs/whiteCircle.svg) no-repeat center center;
+}
+/*-----------signUpFormSection-----------*/
+
+#signUpForm input,
+#signUpForm select,
+#linkClickedLogInSection input {
+    width: 86%;
+    margin: 0 5% 5%;
+    padding: 2%;
+    font-size: 1rem;
+    font-family: 'Avenir-Light', cursive;
+    border-radius: 10px;
+    color: #a7a6a6;
+    border: 1px solid #a9a8a8;
+    background: url(../img/svgs/addNewButton.svg) no-repeat 95% center;
+    background-size: 25px;
+}
+
+#linkClickedLogInSection input {
+    background: none;
+}
+
+input[type="submit"],
+#linkClickedLogInSection input[type="submit"],
+#savingsGoalSubmitBtn,
+#linkClickedSignUpFormSection #signUpFormSubmit,
+{
+    position: absolute;
+    right: 0;
+    bottom: 5%;
+    color: #fff;
+    width: 70%;
+    margin: 0 15%;
+    background: #005ca9;
+}
+
+#signUpForm #signUpFormSubmit,
+resetUser {
+    color: #fff;
+    background: #005ca9;
+}
+
+#signUpForm {
+    background: #fff;
+    width: 90%;
+    height: 90%;
+    margin: 5%;
+    padding-top: 5%;
+    border-radius: 5px;
+}
+/*-----------------------savingsGoal.html-----------------------*/
+
+.savingsGoalName {
+    width: 90%;
+    margin: 0% 5% 10%;
+    font-size: 3rem;
+    text-align: center;
+    border: none;
+    color: #729dd2;
+    background: #0f79be;
+}
+
+#savingsGoalForm div p {
+    font-family: 'Avenir-Book', cursive;
+}
+
+#savingsGoalSubmitBtn {
+    display: inline-block;
+    color: #005ca9;
+    background-color: #fff;
+    border-radius: 50px;
+    border: none;
+    font-family: 'Avenir-Book', sans-serif;
+    font-size: 1.25rem;
+    text-align: center;
+    text-transform: capitalize;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    margin: 7.5% 5%;
+    width: 90%;
+}
+/*-----------------------chooseChallenges.html-----------------------*/
+
+#chooseChallengeSection {
+    height: 92%;
+    width: 85%;
+    margin: 0 7.5%;
+}
+
+#chooseChallengeSection h1 {
+    color: transparent;
+    height: 1px;
+}
+
+#chooseChallengeSection h2 {
+    font-family: 'Avenir-Light';
+    margin-top: 5rem;
+}
+
+#customChallengeSection {
+    height: 92%;
+    left: -100%;
+}
+
+#challengeDescriptionModule {
+    height: auto;
+    left: -100%;
+}
+
+#chooseChallenge div {
+    height: 100%;
+    width: 47.5%;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+#chooseChallenge a {
+    display: block;
+    width: 75%;
+    height: 40%;
+    margin: 0 0 1.5rem 0;
+    padding: 10%;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 100px;
+}
+
+#chooseChallenge a img {
+    width: 50%;
+    height: 70%;
+    margin: 5% 25%;
+}
+
+#lunch img {
+    padding: 10%;
+    padding-left: 0%;
+}
+
+#chooseChallenge #biking img {
+    width: 90%;
+    margin: 5%;
+    padding: 15%;
+    padding-left: 0;
+}
+
+#chooseChallenge #ownChallegne {
+    font-size: 3rem;
+    color: #0f79be;
+    text-decoration: none;
+    padding: 25% 8%;
+}
+/*-----------------------myChallenges.html-----------------------*/
+/*-----------------------userProfile.html-----------------------*/
+
+#profile {
+    height: 100%;
+    width: 100%;
+}
+
+#resetUser {
+    position: absolute;
+    bottom: 10%;
+}
+
+#info p {
+    font-family: 'Avenir-Book', cursive;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: black;
+    text-align: left;
+}
+
+#addNewChallenge {
+    bottom display: block;
+    background: url(../img/svgs/addNewButton.svg) no-repeat center center;
+    background-size: contain;
+    height: 10%;
+}
+
+#savedToDate {
+    font-family: 'Avenir-Black', cursive;
+    color: white;
+    font-size: 4rem;
+    text-align: center;
+    margin: 2rem 1rem -0.75rem;
+}
+
+.dollarSign {
+    font-size: 2.25rem;
+    font-weight: 400;
+    position: absolute;
+    top: 5px;
+    left: 65px;
+}
+
+.savedTxt {
+    font-size: 1.25rem;
+}
+
+#userIndividualChallengesSection {
+    height: 65%;
+    width: 85%;
+    margin: 0 7.5%;
+    top: 35%;
+}
+
+#individualChallengeStats {
+    height: 60%;
+    width: 47.5%;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+#individualChallengeStats p {
+    color: #0a66a1;
+}
+
+#totalSavedPerChallenge {
+    font-family: 'Avenir-Black';
+    font-size: 2rem;
+    color: #0f79be;
+}
+
+#totalSavedPerChallenge .smallDollarSign {
+    font-size: 1.25rem;
+    position: absolute;
+    left: 6px;
+}
+
+.savedToDate {
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.rewardsEarnedPerChallenge {
+    font-size: 0.75rem;
+}
+
+.leftNm {
+    float: left;
+}
+
+.rightNm {
+    float: right;
+}
+
+.userIndividualChallengesSection img {
+    width: 80%;
+    height: 70%;
+    margin: 0.7rem 10%;
+}
+}
+#userIndividualChallengesSection p {
+    color: #0f79be;
+}
+#drop {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    background: yellow;
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+}

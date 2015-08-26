@@ -1,0 +1,23 @@
+{
+    "introSection": [{
+        "h2": "Small Change",
+        "imgSrc": "img/svgs/whiteSmallChangeLogo.svg",
+        "imgAlt": "Small Change App Logo",
+        "p": "Small Change helps you save money and do good in your community.",
+        "newIdToSet": "instructionsSection" 
+    }],
+    "instructionsSection": [{
+       "h2": "Save Money",
+        "imgSrc": "img/svgs/piggieBank.svg",
+        "imgAlt": "Piggie Bank",
+        "p": "Small Change can quickly add up - use the app to easily track your savings and work towards a goal.",
+        "newIdToSet": "messageSection"
+    }],
+    "messageSection": [{
+       "h2": "Do Good",
+        "imgSrc": "img/jpegs/photo2anne.jpg",
+        "imgAlt": "Members of the community help each other.",
+        "p": "Every time you save money our partners make a micro donation to those in need.",
+        "newIdToSet": "signUpOptions"
+    }],
+}
