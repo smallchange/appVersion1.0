@@ -33,9 +33,12 @@ var app = {
         app.time = currentTime;
         app.date = currentDate;
     },
-    checkDetails: function () {},
+    checkDetails: function () {
+		//lp();
+	}, 
     checkProfile: function () {
-        // Check if there is a local storage item 
+        // Check if there is A profile (a local storage item) 
+		// (THIS SHOULD BE CHECKED IN THE INDEX.JS FILE AND NOT HERE) 
         // If there is nothing in local storage, display the sign-up page 
         // Check if the profile table exists 
         // if the profile table exists, check if the challenges table exists 
@@ -75,147 +78,9 @@ var app = {
             // When the submit button is clicked, go to the goal page 
             // When the goal information is saved, go to the activities page and load all activities
         }
-    }
-}
-
-function loadChallenges() {
-
-    sql = 'SELECT challenge_en, agerange, deadline, goalprice, goalname FROM challenges';
-    document.querySelector("#playerchallenges").style.display = "block";
-    transaction.executeSql(sql, [],
-        function (t, challenges) {
-            var rowCount = challenges.rows.item(0).countrows;
-            document.querySelector("#playerchallenges").innerHTML = "";
-            for (var i = 0; i < rowCount; i++) {
-                var p = document.createElement("p");
-                p.innerHTML = activities.rows[i].challenge_en;
-                document.querySelector("#playerchallenges").appendChild(p);
-            }
-        });
-}
-
-// use this to create tables
-var SQLite = {
-
-    createTables: function (tableName) {
-
-        var sql;
-        if (tableName == "profile") {
-            sql = 'CREATE TABLE profile (person_id INTEGER PRIMARY KEY AUTOINCREMENT, firstName TEXT(50), lastName TEXT(50), ageRange TEXT, email TEXT, psw TEXT, deadline TEXT, goalPrice INTEGER, goalName TEXT(255));';
-            //t is still union, r is inserted stuff
-            app.db.transaction(function (trans) {
-                trans.executeSql(sql, [], function (t, r) {
-                        //alert('working');
-
-                        //do something if it works
-                        //output("Table stuff created");
-                        //storeTable(tableName); // adds a field in local storage to tell you the tables have been created
-                    },
-                    function (t, e) {
-                        //alert(e.message);
-                        //output(e.message);
-                    }
-                );
-            });
-        };
-
-        if (tableName == "challenges") {
-            sql = 'CREATE TABLE ' + tableName + ' (challenge_id INTEGER PRIMARY KEY, challenge_en TEXT(50), challenge_fr TEXT(100), price INTEGER);';
-            app.db.transaction(function (trans) {
-                trans.executeSql(sql, [],
-                    function (t, r) {
-                        //do something if it works
-                        output("Table stuff created");
-                        //storeTable(tableName); // adds a field in local storage to tell you the tables have been created
-                    },
-                    function (t, e) {
-                        output(e.message);
-                    }
-                );
-            });
-        }
     },
-    dropTable: function (tableName) {
-        app.db.transaction(function (trans) {
-            //DROP TABLE [ IF EXISTS ] tableName;
-            sql = "DROP TABLE IF EXISTS " + tableName;
-            trans.executeSql(sql, [],
-                function (t, r) {
-                    //do something if it works
-                    alert("Delete Worked"); // adds a field in local storage to tell you the tables have been created
-                },
-                function (t, e) {
-                    alert(e.message);
-                }
-            );
-        });
-    }
-};
-
-// Global values for the user - they may be useful in different parts of the app 
-var user = {
-    id: 0,
-    name: "",
-    email: "",
-    language: "",
-    level: 0,
-    profileexists: false
-}
-
-var goal = {
-    name: "",
-    deadline: "",
-    timeleft: 0, // how long to reach your goal?  
-    set: 0, // Your monetary goal 
-    curtotal: 0, // Current total 
-    remaining: 0, // How much left to reach goal: goal.set - goal.curtotal 
-    challenges: false, // checks if the user has challenges
-    goalset: false, // Checks if there is goal data on the user. Sends the user to the appropriate page 
-    goalreached: false, // Checks if the user's financial goal was reached 
-    saveData: function (ev) {
-        alert(user.id);
-        var sql = "UPDATE profile SET column1=value1,column2=value2 WHERE some_column=some_value";
-        var sql = "INSERT INTO profile(name, email) VALUES('" + playerName + "', '" + playerEmails + "')";
-        transaction.executeSql(sql, [],
-            function (t, profile) {
-                //output("inserted some stuff"); 
-                playerDetails.push({
-                    id: count,
-                    displayName: tableName
-                });
-            });
-        var sql = "SELECT id FROM profile WHERE name = '" + playerName + "'";
-        transaction.executeSql(sql, [],
-            function (t, profile) {
-                //output("inserted some stuff"); 
-                user.id = profile.id;
-                playerDetails.push({
-                    id: user.id
-                });
-            });
-    }
-}
-
-
-function costModal(ev) {
-    ev.preventDefault();
-    document.querySelector("[data-role=overlay]").style.display = "block";
-    document.querySelector("#deadlinepage").style.display = "none";
-    document.querySelector("#costpage").style.display = "block";
-    document.querySelector("#savecost").addEventListener("click", addToCost);
-
-}
-
-function dateModal(ev) {
-    ev.preventDefault();
-    document.querySelector("[data-role=overlay]").style.display = "block";
-    document.querySelector("#costpage").style.display = "none";
-    document.querySelector("#deadlinepage").style.display = "block";
-    document.querySelector("#savegoal").addEventListener("click", addToGoal);
-}
-
-function addToGoal(ev) {
-    alert("saving goal");
+	addtogoal: function(){
+		    alert("saving goal");
     document.querySelector("[data-role=overlay]").style.display = "none";
     ev.preventDefault();
     document.querySelector("#datebox").innerHTML = "";
@@ -254,7 +119,240 @@ function addToGoal(ev) {
     document.querySelector("#datebox").appendChild(timeLeft);
 
 
+	}
 }
+
+function loadChallenges() {
+
+    sql = 'SELECT challenge_en, agerange, deadline, goalprice, goalname FROM challenges';
+    document.querySelector("#playerchallenges").style.display = "block";
+    transaction.executeSql(sql, [],
+        function (t, challenges) {
+            var rowCount = challenges.rows.item(0).countrows;
+            document.querySelector("#playerchallenges").innerHTML = "";
+            for (var i = 0; i < rowCount; i++) {
+                var p = document.createElement("p");
+                p.innerHTML = activities.rows[i].challenge_en;
+                document.querySelector("#playerchallenges").appendChild(p);
+            }
+        });
+}
+
+// use this to create tables
+var SQLite = {
+
+    createTables: function (tableName) {
+
+        var sql;
+        if (tableName == "profile") {
+            sql = 'CREATE TABLE profile (person_id INTEGER PRIMARY KEY AUTOINCREMENT, firstName TEXT(50), lastName TEXT(50), ageRange TEXT, email TEXT, psw TEXT, deadline TEXT, goalPrice INTEGER, goalName TEXT(255));';
+            //t is still union, r is inserted stuff
+            app.db.transaction(function (trans) {
+                trans.executeSql(sql, [], function (t, r) {
+						output("Profile table create successfully"); 
+                    },
+                    function (t, e) {
+                        //alert(e.message);
+                        output(e.message);
+                    }
+                );
+            });
+        };
+
+        if (tableName == "challenges") {
+            sql = 'CREATE TABLE ' + tableName + ' (challenge_id INTEGER PRIMARY KEY, challenge_en TEXT(50), challenge_fr TEXT(100), price INTEGER);';
+            
+			/*
+			app.db.transaction(function (trans) {
+                trans.executeSql(sql, [],
+                    function (t, r) {
+                        //do something if it works
+                        output("Table stuff created");
+                        //storeTable(tableName); // adds a field in local storage to tell you the tables have been created
+                    },
+                    function (t, e) {
+                        output(e.message);
+                    }
+                );
+            });
+			*/
+			
+        }
+    },
+    dropTable: function (tableName) {
+        app.db.transaction(function (trans) {
+            //DROP TABLE [ IF EXISTS ] tableName;
+            sql = "DROP TABLE IF EXISTS " + tableName;
+            trans.executeSql(sql, [],
+                function (t, r) {
+                    //do something if it works
+                    alert("Delete Worked"); // adds a field in local storage to tell you the tables have been created
+                },
+                function (t, e) {
+                    alert(e.message);
+                }
+            );
+        });
+    }
+};
+
+// NEW OBJECT
+// THIS OBJECT IS USED TO VALIDATE USER INPUT AND SAVE INFO ABOUT A PERSON
+var signUp = {
+	validateInput: function(){
+		 validate.checkMinLength(document.getElementById("firstName").value, 2);
+		 if (isValid){
+			 validate.checkMinLength(document.getElementById("lastName").value, 2);
+			 	var email; 
+		var psw; 
+		validate.compareStrings(document.getElementById("email").value, document.getElementById("emailCheck").value); 
+		alert("the isvalid value =" + isValid);
+		// it will only continue if the information is valid 
+		if (isValid)
+		{
+			email = document.getElementById("email").value;
+					// Check that both passwords match 
+		validate.compareStrings(document.getElementById("psw").value, document.getElementById("pswCheck").value);
+		
+		
+		if (isValid)
+		{
+			psw = document.getElementById("psw").value;
+			
+			validate.compareStrings(document.getElementById("psw").value, document.getElementById("pswCheck").value);
+
+		 	if (stringGood)
+			 signUp.saveData(email, psw);
+			 else 
+			 	return; 
+		}
+		else
+		{
+			isValid = false; 
+			alert("Please make sure your email address is correct."); 
+			return; 
+		 }
+		 
+		} 
+		 }
+	
+		else
+			return;
+	},
+    saveData: function (email, psw) {
+		app.db.transaction(function (trans) {
+            var sql = "INSERT INTO profile(firstName, lastName, ageRange, email, psw) VALUES('" 
+			 + document.getElementById("firstName").value + "',"
+			 + "'" + document.getElementById("lastName").value + "',"
+			 + "'" + document.getElementById("selectAge").value + "',"
+			 + "'" + email + "'," 
+			 + "'" + psw + "')";
+			 
+			 psw = ""; // reset password immediately after it is submitted 
+            trans.executeSql(sql, [],
+                function (t, profile) {
+                    console.log("added profile successfully"); 
+                },
+                function (t, e) {
+                    alert(e.message);
+                });
+			});
+
+		// The player's info needs to be uploaded to the United Way server, and the player's id needs to be retrieved. 
+		// This area needs to connect to the server to obtain the player's actual user id 
+		app.db.transaction(function (trans) {
+            sql = "SELECT person_id FROM profile "
+			+ " WHERE firstName = '" + document.getElementById("firstName").value + "'"
+			+ " AND lastName = '" +  document.getElementById("lastName").value + "'";
+			 
+            trans.executeSql(sql, [],
+                function (t, profile) {
+
+					var length = profile.rows.length;
+					for (var i = 0; i < length; i++) {
+						user.id = profile.rows.item(i).person_id;
+						playerDetails.push({
+							id: profile.rows.item(i).person_id,
+							displayName: tableName
+						});
+					}
+                },
+                function (t, e) {
+                    alert(e.message);
+                }
+            );
+        });
+
+	}
+	
+}
+
+// Global values for the user - they may be useful in different parts of the app 
+var user = {
+    id: 0,
+    name: "",
+    email: "",
+    language: "",
+    level: 0,
+    profileexists: false,
+	insertGoal: function(){
+			/*
+	UPDATE table_name
+SET column1=value1,column2=value2,...
+WHERE some_column=some_value;
+*/
+var temp_deadline = '2020-01-01'; // TEMP DEADLINE UNTIL THIS PART IS FIXED
+       var sql = "UPDATE profile SET goalName='" + getFromForm("goalName") + "',goalPrice=" + getFromForm("goalPrice") + ",deadline='" + temp_deadline + "' WHERE person_id = " + user.id;
+	   console.log(sql); 
+		//var sql = "INSERT INTO profile(goalName, goalPrice, deadline) VALUES('" + getFromForm("goalName") + "', '" + getFromForm("goalPrice") + "', '" + getFromForm("deadline") + "')";
+        app.db.transaction(function (trans) {
+            trans.executeSql(sql, [],
+                function (tx, rs) {
+                    output("Added your goals and a deadline");
+                },
+                function (tx, err) {
+                    //failed to run query
+                    output(err.message);
+                });
+            return sql;
+        });
+	}
+}
+
+
+
+// THIS OBJECT IS USED TO SET GOALS 
+var goal = {
+    name: "",
+    deadline: "",
+    timeleft: 0, // how long to reach your goal?  
+    set: 0, // Your monetary goal 
+    curtotal: 0, // Current total 
+    remaining: 0, // How much left to reach goal: goal.set - goal.curtotal 
+    challenges: false, // checks if the user has challenges
+    goalset: false, // Checks if there is goal data on the user. Sends the user to the appropriate page 
+    goalreached: false // Checks if the user's financial goal was reached 
+	
+}
+
+
+function costModal(ev) {
+    ev.preventDefault();
+    document.querySelector("[data-role=overlay]").style.display = "block";
+    document.querySelector("#deadlinepage").style.display = "none";
+    document.querySelector("#costpage").style.display = "block";
+    document.querySelector("#savecost").addEventListener("click", addToCost);
+
+}
+
+function dateModal(ev) {
+    ev.preventDefault();
+    document.querySelector("[data-role=overlay]").style.display = "block";
+    document.querySelector("#costpage").style.display = "none";
+    document.querySelector("#deadlinepage").style.display = "block";
+    document.querySelector("#savegoal").addEventListener("click", app.addToGoal);
+}
+
 
 function addToCost(ev) {
     document.querySelector("[data-role=overlay]").style.display = "none";
@@ -328,52 +426,14 @@ function getActivities(xhr) {
 
 function getFromForm(nameOfInput) {
     var value = $.trim(document.getElementById(nameOfInput).value);
+	alert(value);
     return value;
 }
 
-function insertProfile() {
-    //var playerName = document.querySelector("#name").innerHTML; 
-    // var playerEmail = document.querySelector("email").innerHTML; 
-    // other player information
-    // add to local storage for easier retrieval of user information (user id) which will be used to filter database information
-    var sql = "INSERT INTO profile(firstName, lastName, ageRange, email, psw) VALUES('" + getFromForm("firstName") + "', '" + getFromForm("lastName") + "', '" + $('#signUpForm option:selected').attr('value') + "', '" + getFromForm("email") + "', '" + getFromForm("psw") + "')";
-    app.db.transaction(function (trans) {
-        trans.executeSql(sql, [],
-            function (tx, rs) {
-                output("inserted some stuff");
-            },
-            function (tx, err) {
-                //failed to run query
-                output(err.message);
-            });
-        return sql;
-    });
 
-    /*var sql = "SELECT id FROM profile WHERE name = '" + playerName + "'";
-        trans.executeSql(sql, [],
-            function (t, profile) {
-                //output("inserted some stuff"); 
-                user.id = profile.id;
-                playerDetails.push({
-                    id: user.id
-                });
-            });
-    */
-}
 
 function insertGoalIntoProfile() {
-        var sql = "INSERT INTO profile(goalName, goalPrice, deadline) VALUES('" + getFromForm("goalName") + "', '" + getFromForm("goalPrice") + "', '" + getFromForm("deadline") + "')";
-        app.db.transaction(function (trans) {
-            trans.executeSql(sql, [],
-                function (tx, rs) {
-                    output("inserted some stuff");
-                },
-                function (tx, err) {
-                    //failed to run query
-                    output(err.message);
-                });
-            return sql;
-        });
+
     }
     // Call this function on click events to add new challenges 
 function insertChallenges(ev) {
@@ -387,3 +447,57 @@ function insertChallenges(ev) {
         });
 }
 app.initialize();
+
+
+/*
+var leanPlum = {
+	init: function(){
+	// research on how to write data to JSON FILE 
+	
+	alert("it works"); 
+	// This value should be set to true only if you're developing on your server.
+	var isDevelopmentMode = true;
+	// Sample variables. This can be any JSON object.
+	var variables = {
+		items: {
+			color: 'red',
+			size: 20,
+			showBadges: true
+		},
+		showAds: true
+		};
+ 
+
+	// We've inserted your Small Change API keys here for you :)
+	if (isDevelopmentMode) {
+		Leanplum.setAppIdForDevelopmentMode("app_D74zpdfYX292l6A7Sh29wa7KZjtfzoR3rZhmlIHP0UE", "dev_UKDZVbEbE8kKutg8WRTlwfacwuXhzW0baEk0M2IxVSs");
+		} else {
+			Leanplum.setAppIdForProductionMode("app_D74zpdfYX292l6A7Sh29wa7KZjtfzoR3rZhmlIHP0UE", "prod_dWvVUuRF5JqJiSpR7rtBC5Cn2rMRgKpwegJKggL3YOU");
+		}
+		
+		Leanplum.setVariables(variables);
+		Leanplum.start(function(success) {
+			console.log('Success: ' + success);
+			console.log('Variables', Leanplum.getVariables());
+		});	
+	},
+	pushMsg: function(){
+		Leanplum.setVariables({
+			StoreTitle: "Powerup Store",
+			Items: [{
+				name: "Speed Boost",
+				price: 100
+				}, {
+					name: "Health Boost",
+					price: 150
+				}
+			]
+		});
+	},
+	userSession: function(id){
+	id = user.id; 
+	Leanplum.start(user.id);
+	// Start with user ID and attributes.
+	Leanplum.start(id, {'language': user.language}, {'email': user.email});	
+	}
+}*/

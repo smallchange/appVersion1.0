@@ -222,28 +222,39 @@ var deviceHeight = [];
         //--------------------getInfoToDatabases
         $('body').on('click', '#signUpFormSubmit', function (event) {
             event.preventDefault();
-            dynamicArgument = 'savingsGoal';
-            dynamicDestination = "#slidePositive";
-            slideId = $(this).parents('div').addBack().first().attr('id');
-
-            SQLite.createTables("profile");
-            insertProfile()
-
-            gui.loadNewInfo(dynamicArgument, dynamicDestination);
-            gui.slideSwitch(slideId);
+             signUp.validateInput(); 
+			 
+			 // Cannot show the next page if the info is not valid
+			 if (isValid && stringGood)
+			 {
+				 dynamicArgument = 'savingsGoal';
+				 dynamicDestination = "#slidePositive";
+				 slideId = $(this).parents('div').addBack().first().attr('id');
+				 SQLite.createTables("profile");
+				 gui.loadNewInfo(dynamicArgument, dynamicDestination);
+				 gui.slideSwitch(slideId);
+			 } 
+			 else 
+			 	return; 
         });
         
         $('body').on('click', '#savingsGoalSubmitBtn', function (event) {
             event.preventDefault();
-            dynamicArgument = 'chooseChallenge';
-            dynamicDestination = "#slideNegative";
-            slideId = $(this).parents('div').addBack().first().attr('id');
-
-            SQLite.createTables("profile");
-            insertGoalIntoProfile()
-
-            gui.loadNewInfo(dynamicArgument, dynamicDestination);
-            gui.slideSwitch(slideId);
+			validate.checkMinLength(document.getElementById("goalName").value, 3);
+			validate.checkMinLength(document.getElementById("goalPrice").value, 3); // not sure if max 3 characters is sufficient for this value
+			validate.checkMinLength(document.getElementById("deadline").value, 10); // requires a better validation to check if the date is written correctly 
+			
+			// Continue if the strings contain input 
+			if (stringGood){
+				user.insertGoal();
+				dynamicArgument = 'chooseChallenge';
+				dynamicDestination = "#slideNegative";
+				slideId = $(this).parents('div').addBack().first().attr('id');
+				gui.loadNewInfo(dynamicArgument, dynamicDestination);
+				gui.slideSwitch(slideId);
+			} else
+			return; 
+			
         });
 
         $('body').on('click', '#coffee', function (event) {
@@ -253,7 +264,7 @@ var deviceHeight = [];
             slideId = $(this).parents('div').addBack().first().attr('id');
 
             SQLite.createTables("challenges");
-            insertProfile()
+            //insertProfile()
 
             gui.loadNewInfo(dynamicArgument, dynamicDestination);
             gui.slideSwitch(slideId);

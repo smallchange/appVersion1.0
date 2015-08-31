@@ -12,11 +12,13 @@
 
     <title>Small Change Introduction</title>
     <link href="css/index.css" rel="stylesheet" type="text/css">
-
+    
+	<script type="text/javascript" charset="utf-8"  src="js/lib/leanplum.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/lib/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/lib/hammer.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/frontEnd/index.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/serverSide/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/frontEnd/validateinput.js"></script>
 </head>
 
 <body>
@@ -70,7 +72,7 @@
                 <img class="hw25" alt="Small Change App Logo" src="img/svgs/whiteSmallChangeLogoNoTxt.svg">
 
                 <div class="button">
-                    <a href="#" id="signUpSocail" class="modalLink">Socail Media</a>
+                    <a href="#" id="signUpSocail" class="modalLink">Social Media</a>
                     <a href="#" id="signUp" class="modalLink">Sign Up</a>
                     <a href="#" id="accountLoginLink" class="modalLink">Have an account? Log in</a>
                 </div>
@@ -99,7 +101,7 @@
                 <form id="signUpForm" class="hw100">
                     <input type="text" id="firstName" placeholder="Firstname">
                     <input type="text" id="lastName" placeholder="Lastname">
-                    <select>
+                    <select id="selectAge">
                         <option value="ageRange">Age Range</option>
                         <option value="16to25">16 to 25</option>
                         <option value="26to35">26 to 35</option>
