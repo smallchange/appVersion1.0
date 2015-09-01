@@ -1,7 +1,3 @@
-var init;
-
-//-------------------------------------------------- old code
-
 var deviceWidth = [];
 var deviceHeight = [];
 
