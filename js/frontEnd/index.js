@@ -26,11 +26,22 @@ var deviceHeight = [];
                         $("div.log").text("Triggered ajaxError handler.");
                     });
             },
-
+            appendNewInfo: function (dynamicArgument, dynamicDestination) {
+                $(dynamicDestination).empty();
+                $.get('ajax/html/' + dynamicArgument + 'Info.html', function (data) {
+                    $(dynamicDestination).html(data);
+                });
+                return    
+            },
             showModal: function () {
                 $("#modal").attr("data-state", "right");
                 $("#modal").css("z-index", "100");
+
                 return
+            },
+            showModalBkr: function () {
+                $("#blackCover").attr("data-state", "right");
+                $('#blackCover').css("z-index", "90");
             },
             hideModal: function () {
                 $("#modal").attr("data-state", "hideRight");
@@ -59,7 +70,7 @@ var deviceHeight = [];
                                 */
                     $("#slideZero").attr("data-state", "left");
                     $("#slidePositive").attr("data-state", "right");
-                    
+
                 } else if (slideId == 'slidePositive') {
                     $("#slidePositive").attr("data-state", "left");
 
@@ -207,62 +218,92 @@ var deviceHeight = [];
             event.preventDefault();
             dynamicArgument = $(this).attr('id');
             dynamicDestination = "#modal";
-            
+
             gui.loadNewInfo(dynamicArgument, dynamicDestination);
             gui.showModal();
         });
-        
+
         $('body').on('click', '#navBtnBack', function (event) {
             gui.hideModal();
         });
         //--------------------getInfoToDatabases
         $('body').on('click', '#signUpFormSubmit', function (event) {
             event.preventDefault();
-             signUp.validateInput(); 
-			 
-			 // Cannot show the next page if the info is not valid
-			 if (isValid && stringGood)
-			 {
-				 dynamicArgument = 'savingsGoal';
-				 dynamicDestination = "#slidePositive";
-				 slideId = $(this).parents('div').addBack().first().attr('id');
-				 SQLite.createTables("profile");
-				 gui.loadNewInfo(dynamicArgument, dynamicDestination);
-				 gui.slideSwitch(slideId);
-			 } 
-			 else 
-			 	return; 
+            //signUp.validateInput(); 
+
+            // Cannot show the next page if the info is not valid
+            //if (isValid && stringGood)
+            //{
+            dynamicArgument = 'savingsGoal';
+            dynamicDestination = "#slidePositive";
+            slideId = $(this).parents('div').addBack().first().attr('id');
+            SQLite.createTables("profile");
+            SQLite.createTables("challenges");
+            gui.loadNewInfo(dynamicArgument, dynamicDestination);
+            gui.slideSwitch(slideId);
+            SQLite.insertIntoProfile();
+            //} 
+            //else 
+            //return; 
         });
-        
+
         $('body').on('click', '#savingsGoalSubmitBtn', function (event) {
             event.preventDefault();
-			validate.checkMinLength(document.getElementById("goalName").value, 3);
+            /*	validate.checkMinLength(document.getElementById("goalName").value, 3);
 			validate.checkMinLength(document.getElementById("goalPrice").value, 3); // not sure if max 3 characters is sufficient for this value
 			validate.checkMinLength(document.getElementById("deadline").value, 10); // requires a better validation to check if the date is written correctly 
 			
 			// Continue if the strings contain input 
 			if (stringGood){
 				user.insertGoal();
-				dynamicArgument = 'chooseChallenge';
-				dynamicDestination = "#slideNegative";
-				slideId = $(this).parents('div').addBack().first().attr('id');
-				gui.loadNewInfo(dynamicArgument, dynamicDestination);
-				gui.slideSwitch(slideId);
-			} else
-			return; 
-			
+                */
+            dynamicArgument = 'chooseChallenge';
+            dynamicDestination = "#slideNegative";
+            slideId = $(this).parents('div').addBack().first().attr('id');
+            gui.loadNewInfo(dynamicArgument, dynamicDestination);
+            gui.slideSwitch(slideId);
+            /*} else
+			return; */
+
         });
 
-        $('body').on('click', '#coffee', function (event) {
-            event.preventDefault();
+        $('body').on('click', '.userIndividualChallengesSection', function (ev) {
+            ev.preventDefault();
+
+            challengeChosen = $(this).addBack().attr('id');
+            dynamicDestination = $('#modal');
+            if (challengeChosen == 'ownChallenge') {
+                gui.loadNewInfo(challengeChosen, dynamicDestination);
+                gui.showModal();
+            } else {
+                load = "preSetChallenge"
+                gui.loadNewInfo(load, dynamicDestination);
+                $('#dynamicWord').append(challengeChosen);
+                gui.showModal();
+            }
+        });
+
+        $('body').on('click', '#customChallengeSubmit', function (ev) {
+            ev.preventDefault();
+            slideId = 'slideNegative';
             dynamicArgument = 'myChallenges';
             dynamicDestination = "#slideZero";
-            slideId = $(this).parents('div').addBack().first().attr('id');
-
-            SQLite.createTables("challenges");
-            //insertProfile()
-
+            
+            gui.hideModal();
             gui.loadNewInfo(dynamicArgument, dynamicDestination);
+            gui.slideSwitch(slideId);
+        });
+        $('body').on('click', '#acceptChallenge', function (ev) {
+            ev.preventDefault();
+            slideId = 'slideNegative';
+            dynamicArgument = 'myChallenges';
+            dynamicDestination = "#slideZero";
+            challengesArg = "challengeLeft";
+            challengeDes = "userIndividualChallengesSection";
+            
+            gui.hideModal();
+            gui.loadNewInfo(dynamicArgument, dynamicDestination);
+            gui.appendNewInfo(challengesArg, challengeDes);
             gui.slideSwitch(slideId);
         });
         

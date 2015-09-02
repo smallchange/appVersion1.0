@@ -3,6 +3,13 @@
  var isValid;
  
  var validate = {
+     versionNumber: function () {},
+     userCreated: function () {},
+     challengeCreated: function () {},
+     isFormEmpty: function () {},
+     isEmailValid: function () {},
+     valueChosen: function () {},
+     pictureChosen: function () {},
 	 compareStrings: function(field1, field2){
 			field1 = field1.trim();
 			field2 = field2.trim();
@@ -40,6 +47,21 @@
 		 // use a regular expression to check if the email was added properly with @ and .com, .ca
 	 }
  }
+ 
+ /*
+ 
+    what is version number
+	is user created
+	did user choose challenges
+	
+	are fields empty or not
+	is it a valid email
+	
+	did they input $ value if not then they get auto(tell them that)
+	did they choose description
+	did they choose picture
+		if not use f/l initial 
+ */
 
 
  
