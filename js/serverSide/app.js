@@ -196,11 +196,18 @@ var userActions = {
 var stringGood = false;
 var isValid;
 var validate = {
-    //is user a guest
-    isUserGuest: function () {},
+    //is user a guest (return true or false)
+    isUserGuest: function () {
+        return //true or false
+    },
 
-    // use to check if a new version of app is out
-    versionNumber: function () {},
+    // use to check if current number from server is higher or lower
+    vN: "",
+    versionNumber: function () {
+        //if number is higher vN = hi
+        //if number is lower vN = low
+    },
+    //returns vN 
 
     // use to check if profile exists
     checkProfile: function () {
@@ -237,13 +244,22 @@ var validate = {
             // When the submit button is clicked, go to the goal page 
             // When the goal information is saved, go to the activities page and load all activities
         }
+        
+        
     },
-
+    //returns true or false
+    
     //used to check if users challenges
-    challengesCreated: function () {},
-
-    //use to check infromation from form inputs
-    isFormEmpty: function () {},
+    challengesCreated: function () {
+        return //true or false
+    },
+    
+    //use to check if user infromation from user inputs
+    isFormEmpty: function () {
+        return //true or false
+    },
+    
+    //use to check if two values from two input fields = the same
     compareStrings: function (field1, field2) {
         field1 = field1.trim();
         field2 = field2.trim();
@@ -259,6 +275,9 @@ var validate = {
             alert("is valid is " + isValid);
         }
     },
+    //returns true or false
+    
+    //check if user input is more than #value
     checkMinLength: function (input, minLength) {
         // This will be used to check names
         // for names: minimum of 2 characters 
@@ -268,6 +287,9 @@ var validate = {
         else
             stringGood = isValid = false;
     },
+    //returns true or false
+    
+    //check if user input is more than a certain length
     checkLength: function (input, minLength, maxLength) {
         // Use this to set a restriction on the maximum number of characters 
         // This will be used to check passwords 
@@ -276,9 +298,13 @@ var validate = {
         else
             stringGood = isValid = false;
     },
+    //returns true or false
+    
+    //checks if user inputed a valid email
     checkEmail: function (email) {
         // api http://blog.mailgun.com/free-email-validation-api-for-web-forms/
     }
+    //returns true or false
 }
 
 // use functions for mathematical algorithms 

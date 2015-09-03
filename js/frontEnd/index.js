@@ -230,7 +230,7 @@ var deviceHeight = [];
         //--------------------getInfoToDatabases
         $('body').on('click', '#signUpFormSubmit', function (event) {
             event.preventDefault();
-            //signUp.validateInput(); 
+            
             var url = 'ajax/json/appInfo.json';
             $.getJSON(url, function (data) {}).done(function (data) {
                     
