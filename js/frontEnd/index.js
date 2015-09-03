@@ -3,6 +3,7 @@ var deviceHeight = [];
 
 (function (window, document, $) {
     $(function () {
+
         var dynamicId,
             dynamicClass,
             pages = [],
@@ -31,7 +32,7 @@ var deviceHeight = [];
                 $.get('ajax/html/' + dynamicArgument + 'Info.html', function (data) {
                     $(dynamicDestination).html(data);
                 });
-                return    
+                return
             },
             showModal: function () {
                 $("#modal").attr("data-state", "right");
@@ -230,21 +231,28 @@ var deviceHeight = [];
         $('body').on('click', '#signUpFormSubmit', function (event) {
             event.preventDefault();
             //signUp.validateInput(); 
+            var url = 'ajax/json/appInfo.json';
+            $.getJSON(url, function (data) {}).done(function (data) {
+                    
+                        alert(data.versionNumber);
 
-            // Cannot show the next page if the info is not valid
-            //if (isValid && stringGood)
-            //{
+                })
+                // Cannot show the next page if the info is not valid
+                //if (isValid && stringGood)
+                //{
             dynamicArgument = 'savingsGoal';
             dynamicDestination = "#slidePositive";
             slideId = $(this).parents('div').addBack().first().attr('id');
-            SQLite.createTables("profile");
-            SQLite.createTables("challenges");
+            serverActions.createTables("profile");
+            serverActions.createTables("challenges");
             gui.loadNewInfo(dynamicArgument, dynamicDestination);
             gui.slideSwitch(slideId);
-            SQLite.insertIntoProfile();
+            userActions.insertProfileInfo();
             //} 
             //else 
             //return; 
+
+
         });
 
         $('body').on('click', '#savingsGoalSubmitBtn', function (event) {
@@ -288,7 +296,7 @@ var deviceHeight = [];
             slideId = 'slideNegative';
             dynamicArgument = 'myChallenges';
             dynamicDestination = "#slideZero";
-            
+
             gui.hideModal();
             gui.loadNewInfo(dynamicArgument, dynamicDestination);
             gui.slideSwitch(slideId);
@@ -300,13 +308,13 @@ var deviceHeight = [];
             dynamicDestination = "#slideZero";
             challengesArg = "challengeLeft";
             challengeDes = "userIndividualChallengesSection";
-            
+
             gui.hideModal();
             gui.loadNewInfo(dynamicArgument, dynamicDestination);
             gui.appendNewInfo(challengesArg, challengeDes);
             gui.slideSwitch(slideId);
         });
-        
+
         $('#drop').click(function (event) {
             event.preventDefault();
 

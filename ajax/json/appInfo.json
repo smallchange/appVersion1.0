@@ -1,5 +1,9 @@
 {
     "application": "Small Change",
-    "versionNumber": "1.0",
-    "userInfo": "no"
+    "versionNumber": "1.2",
+    "profileExists": "no",
+    "challengeChosen": "no",
+    "languagePreference" : "",
+    "userNamePerDevice" : "",
+    "guestUsername"
 }
