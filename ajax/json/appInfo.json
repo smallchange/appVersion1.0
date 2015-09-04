@@ -1,8 +1,11 @@
 {
     "application": "Small Change",
     "versionNumber": "1.2",
-    "profileExists": "no",
-    "challengeChosen": "no",
+    "profile": "profileExists",
+    "guest": "notGuest",
+    "challenge": "no",
+    "userLvl": 0,
+    "lvlPoints": 0,
     "languagePreference" : "",
     "userNamePerDevice" : "",
     "guestUsername"
