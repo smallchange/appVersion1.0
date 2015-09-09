@@ -29,9 +29,9 @@ var app = {
                     $("div.log").text("Triggered ajaxError handler.");
                 });
         },
-        appendNewInfo: function (dynamicArgument, dynamicDestination) {
+        appendNewHtml: function (dynamicArgument, dynamicDestination) {
             $(dynamicDestination).empty();
-            $.get('ajax/html/' + dynamicArgument + 'Info.html', function (data) {
+            $.get('ajax/html/' + dynamicArgument + '.html', function (data) {
                 $(dynamicDestination).html(data);
             });
             return;
@@ -66,9 +66,67 @@ var app = {
                 $("#slideZero").attr("data-state", "right");
             }
             return;
+        },
+        ifElse: function (valueIn, trueValue, falseValue, trueRun, falseRun) {
+            if (valueIn == trueValue) {
+                return returnTrue;
+            } else {
+                return falseUse;
+            }
+        },
+        getFromJson: function (folder, fileName) {
+            $.getJSON('ajax/' + folder + '/' + fileName + '.json', function (data) {}).done(function (data) {
+                $.each(data.appInfo, function () {
+                    var obj = this;
+                    //callback(obj[checkThis]);
+                    //return
+
+                });
+            }).fail(function (jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.log("Request Failed: " + err);
+            });
         }
     },
+    hammer = {
+        api: function (dynamicObject, directionResult) {
+            var options = {
+                dragLockToAxis: true,
+                dragBlockHorizontal: true
+            };
+            // create a simple instance
+            // by default, it only adds horizontal recognizers
+            var object = document.getElementById('' + dynamicObject + '');
+            var mc = new Hammer(object);
+            //var mc = new Hammer(object, options);
 
+            // listen to events...
+            //var swipeGesture = "pan" + directionResult;
+            mc.on('pan' + directionResult, function () {
+                object.setAttribute('data-state', '' + directionResult + '');
+            });
+        },
+        swipe: function (domObject, direction) {
+            var right = direction,
+                left = direction,
+                up = direction,
+                down = direction;
+            switch (direction) {
+            case right:
+                hammer.api(domObject, direction);
+                break;
+            case left:
+                hammer.api(domObject, direction);
+                break;
+            case up:
+                hammer.api(domObject, direction);
+                break;
+            case down:
+                hammer.api(domObject, direction);
+                break;
+            }
+        }
+    },
     // use functions to have interactions based on time and date
     calender = {
         setToday: function () {
@@ -255,13 +313,52 @@ var app = {
     isValid = false,
     vN = "",
     svN = "",
+    //callBack= "",
     validate = {
-        //get general information about app from this json file
-        url: 'ajax/json/appInfo.json',
+        //get general information about app from this json file 
+        //arguement type is string
+        /*
+        appInfo: function (checkThis, callback) {
 
+            $.getJSON('ajax/json/appInfo.json', function (data) {}).done(function (data) {
+                $.each(data.appInfo, function () {
+                    var obj = this;
+                    callback(obj[checkThis]);
+                    return
+                });
+            }).fail(function (jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.log("Request Failed: " + err);
+            });    
+        },
+        */
+        appInfo: function (checkThis, callback) {
+            var returnedInfo = "";
+            
+            
+            
+            
+            
+            function getFromJson() {
+                $.getJSON('ajax/json/appInfo.json', function (data) {}).done(function (data) {
+                    $.each(data.appInfo, function () {
+                        var obj = this;
+                        var returnedInfo = obj[checkThis];
+                        console.log (returnedInfo);
+                        return returnedInfo;
+                    });
+
+                }).fail(function (jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                    console.log("Request Failed: " + err);
+                });
+            };
+
+            return getFromJson();
+        },
         // use to check if current version number of app on device
         appVersionNum: function () {
-            $.getJSON(url, function (data) {}).done(function (data) {
+            $.getJSON('ajax/json/appInfo.json', function (data) {}).done(function (data) {
                 vN = data.versionNumber;
             });
             return vN;
@@ -273,6 +370,7 @@ var app = {
         //returns current installed app sVN == serverVersionNumber
 
         // use to check if profile exists
+        /* Anna's Code
         checkProfile: function () {
             if (localStorage.getItem("player-tablelog")) {
                 tables = JSON.parse(localStorage.getItem("player-tablelog")); //convert from String to Array
@@ -307,14 +405,25 @@ var app = {
                 // When the submit button is clicked, go to the goal page 
                 // When the goal information is saved, go to the activities page and load all activities
             }
-
-
-        }, //Anna
-
+        },
+        */
         checkProfile: function () {
-            return $.getJSON(url, function (data) {}).done(function (data) {
-                data.profile;
+            var tdata = "";
+            var thisData = "";
+            $.getJSON('ajax/json/appInfo.json', function (data) {}).done(function (data) {
+                $.each(data, function (k, v) {
+                    var thisData = data.profile;
+                    data.profile;
+                });
+
+                //$.each(data, function () {
+                //  var thisData = data;
+                //var tdata = thisData.profile;
+                //thisData.profile;
+                //});
             });
+            console.log(thisData);
+            return;
         }, //Hassan
         //returns true=profileExists || false=noProfile
 

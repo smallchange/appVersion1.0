@@ -1,11 +1,29 @@
+jQuery.ajaxSetup({
+    cache: true
+});
+
 var init = {
+    loadScripts: function (dynamicArgument, dynamicDestination) {
+        $.get('ajax/html/' + dynamicArgument + '.html', function (data) {
+            $(dynamicDestination).html(data);
+        });
+        return;
+    },
     initChecks: function (dynamicCase) {
+        var profileExists = dynamicCase,
+            noProfile = dynamicCase,
+            guestExists = dynamicCase,
+            noGuest = dynamicCase,
+            challengeExists = dynamicCase,
+            noChallenges = dynamicCase;
+
         switch (dynamicCase) {
         case profileExists:
-            init.check(validate.challengesCreated());
+            gui.appendNewHtml('newUser', $('#slideNegative'))
+            console.log(dynamicCase);
             break;
         case noProfile:
-            init.check(validate.isUserGuest());
+            gui.appendNewHtml('newUser', $('#slideZero'))
             break;
         case guestExists:
             init.check(validate.challengesCreated());
@@ -25,9 +43,22 @@ var init = {
         }
     },
     initialize: function () {
-        calender.setToday(); // sets today's date
-        document.addEventListener("DOMContentLoaded", app.checkDetails);
-        document.addEventListener('deviceready', app.checkDetails, false);
+        //init.initChecks(validate.appInfo('profile', function(callback) {
+        //  console.log(callback);
+        //    return callback;
+        //}));
+        console.log(validate.appInfo('profile'));
+        //console.log(validate.appVersionNum())
+        //init.initChecks(returnedValue);
+        //init.initChecks(validate.appInfo("profile"))
+
+        //calender.setToday(); // sets today's date
+        //document.addEventListener("DOMContentLoaded", init.loadScripts("loadScripts", $("head")));
+        //document.addEventListener('deviceready', init.loadScripts());
+
+
+        //document.addEventListener("DOMContentLoaded", init.initChecks(validate.checkProfile()));
+        //document.addEventListener('deviceready', init.initChecks(validate.checkProfile()), false);
     },
 }
 

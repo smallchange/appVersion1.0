@@ -1,12 +1,14 @@
 {
-    "application": "Small Change",
-    "versionNumber": "1.2",
-    "profile": "profileExists",
-    "guest": "notGuest",
-    "challenge": "no",
-    "userLvl": 0,
-    "lvlPoints": 0,
-    "languagePreference" : "",
-    "userNamePerDevice" : "",
-    "guestUsername"
+    "appInfo": [{
+            "application": "Small Change",
+            "versionNumber": "1.2",
+            "profile": "noProfile",
+            "guest": "notGuest",
+            "challenge": "no",
+            "userLvl": 0,
+            "lvlPoints": 0,
+            "languagePreference": "",
+            "userNamePerDevice": "",
+            "guestUsername": ""
+        }]
 }

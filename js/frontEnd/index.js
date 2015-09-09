@@ -33,39 +33,16 @@ $('body').on('click', '.pageLink', function (ev) {
     gui.showNewPage()
 });*/
 
-//--------------------swipe gestures
-
 $("#englishContent").click(function () {
     $("#languagePreference").attr('data-state', 'left');
 });
 
-var mc = new Hammer($('#introSection'));
-mc.get('pan').set({
-    direction: Hammer.DIRECTION_ALL
-});
-mc.on("panleft", function (ev) {
-    intro.setAttribute('data-state', 'left');
-});
-
-var instructions = document.getElementById('instructionsSection');
-var mc1 = new Hammer(instructions);
-mc1.get('pan').set({
-    direction: Hammer.DIRECTION_ALL
-});
-mc1.on("panleft", function (ev) {
-    instructions.setAttribute('data-state', 'left');
-});
-
-var links = document.getElementById('transitionLinksWrap');
-var message = document.getElementById('messageSection');
-var mc2 = new Hammer(message);
-mc2.get('pan').set({
-    direction: Hammer.DIRECTION_ALL
-});
-mc2.on("panleft", function (ev) {
-    message.setAttribute('data-state', 'left');
-    links.setAttribute('data-state', 'left');
-});
+//--------------------swipe gestures
+//hammer.swipe('introSection', 'left');
+//hammer.swipe('instructionsSection', 'left');
+//hammer.swipe('messageSection', 'left');
+//hammer.swipe('signUpSocailSection', 'left')
+//hammer.swipe('linkClickedLogInSection', 'left');
 
 $("#signUpSocail").click(function () {
     $(".opaqueBlackBackground").attr('data-state', 'right')
@@ -73,67 +50,17 @@ $("#signUpSocail").click(function () {
     $("#signUpSocialSection").addClass('z90');
 });
 
-var bBk = document.getElementById('opaqueBlackBackground');
-var socailM = document.getElementById('signUpSocail');
-var mc = new Hammer(socailM);
-mc2.get('pan').set({
-    direction: Hammer.DIRECTION_ALL
-});
-
-
 $("#signUp").click(function () {
     $(".opaqueBlackBackground").attr('data-state', 'right')
     $("#signUpSection").attr('data-state', 'right');
     $("#signUpSection").addClass('z100');
 })
 
-var links = document.getElementById('transitionLinksWrap');
-var message = document.getElementById('messageSection');
-var mc2 = new Hammer(message);
-mc2.get('pan').set({
-    direction: Hammer.DIRECTION_ALL
-});
-mc2.on("panleft", function (ev) {
-    message.setAttribute('data-state', 'left');
-    links.setAttribute('data-state', 'left');
-});
-
 $("#accountLoginLink").click(function () {
     $(".opaqueBlackBackground").attr('data-state', 'right')
     $("#linkClickedLogInSection").attr('data-state', 'right');
     $("#linkClickedLogInSection").addClass('z90');
 })
-
-var links = document.getElementById('transitionLinksWrap');
-var message = document.getElementById('messageSection');
-var mc2 = new Hammer(message);
-mc2.get('pan').set({
-    direction: Hammer.DIRECTION_ALL
-});
-mc2.on("panleft panright panup pandown tap press", function (ev) {
-    message.setAttribute('data-state', 'left');
-    links.setAttribute('data-state', 'left');
-});
-
-var bBk = document.getElementById('opaqueBlackBackground');
-
-var socailLinks = document.getElementById('signUpSocailSection');
-var signUpForm = document.getElementById('signUpSocialSection');
-var logIn = document.getElementById('linkClickedLogInSection');
-//var mc2 = new Hammer(socailLinks);
-var mc3 = new Hammer(signUpForm);
-var mc4 = new Hammer(logIn);
-mc2.get('pan').set({
-    direction: Hammer.DIRECTION_ALL
-});
-mc3.on("panleft", function (ev) {
-    signUpForm.setAttribute('data-state', 'left');
-    bBk.setAttribute('data-state', 'left');
-});
-mc4.on("panleft", function (ev) {
-    logIn.setAttribute('data-state', 'left');
-    bBk.setAttribute('data-state', 'left');
-});
 
 //--------------------nav functions (fix)
 $('body').on('click', '#navBtn', function (event) {
@@ -173,22 +100,12 @@ $('body').on('click', '#signUpFormSubmit', function (event) {
 
 $('body').on('click', '#savingsGoalSubmitBtn', function (event) {
     event.preventDefault();
-    /*	validate.checkMinLength(document.getElementById("goalName").value, 3);
-			validate.checkMinLength(document.getElementById("goalPrice").value, 3); // not sure if max 3 characters is sufficient for this value
-			validate.checkMinLength(document.getElementById("deadline").value, 10); // requires a better validation to check if the date is written correctly 
-			
-			// Continue if the strings contain input 
-			if (stringGood){
-				user.insertGoal();
-                */
+    
     dynamicArgument = 'chooseChallenge';
     dynamicDestination = "#slideNegative";
     slideId = $(this).parents('div').addBack().first().attr('id');
     gui.loadNewInfo(dynamicArgument, dynamicDestination);
     gui.slideSwitch(slideId);
-    /*} else
-			return; */
-
 });
 
 $('body').on('click', '.userIndividualChallengesSection', function (ev) {
