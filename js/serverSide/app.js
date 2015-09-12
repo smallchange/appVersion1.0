@@ -74,7 +74,29 @@ var app = {
                 return falseUse;
             }
         },
-        getFromJson: function (folder, fileName) {
+        //notWorking
+        getInfo: function (fileName, fileType, key, callBack) {
+            $.get('ajax/' + fileType + '/' + fileName + '.' + fileType + '', function (data) {}).done(function (data) {
+                $.each(data, function (k, v) {
+                    //var obj = this;
+                    //console.log(obj[key]);
+                    //valueHolder = data[fileName][key];
+                    //return obj[key];
+                    //alert (k + '' + v);
+                    if (k == key) {
+                        testFoo = v;
+                    }
+                    console.log(testFoo);
+                    return testFoo;
+                });
+            }).fail(function (jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.log("Request Failed: " + err);
+            });
+
+        }(),
+        getFromJson2: function (folder, fileName, key, callBackValue) {
+            var objKey;
             $.getJSON('ajax/' + folder + '/' + fileName + '.json', function (data) {}).done(function (data) {
                 function celebrityIDCreator(data) {
                     var i;
