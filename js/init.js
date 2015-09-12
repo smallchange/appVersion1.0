@@ -20,7 +20,6 @@ var init = {
         switch (dynamicCase) {
         case profileExists:
             gui.appendNewHtml('newUser', $('#slideNegative'))
-            console.log(dynamicCase);
             break;
         case noProfile:
             gui.appendNewHtml('newUser', $('#slideZero'))
@@ -43,23 +42,10 @@ var init = {
         }
     },
     initialize: function () {
-        //init.initChecks(validate.appInfo('profile', function(callback) {
-        //  console.log(callback);
-        //    return callback;
-        //}));
-        console.log(validate.appInfo('profile'));
-        //console.log(validate.appVersionNum())
-        //init.initChecks(returnedValue);
-        //init.initChecks(validate.appInfo("profile"))
-
-        //calender.setToday(); // sets today's date
-        //document.addEventListener("DOMContentLoaded", init.loadScripts("loadScripts", $("head")));
-        //document.addEventListener('deviceready', init.loadScripts());
-
-
-        //document.addEventListener("DOMContentLoaded", init.initChecks(validate.checkProfile()));
-        //document.addEventListener('deviceready', init.initChecks(validate.checkProfile()), false);
-    },
-}
-
+        //var t = function () { gui.getval( ) 
+        
+        console.log(gui.getInfo('appInfo', 'json', 'profile'));
+        init.initChecks();
+    }
+};
 init.initialize();

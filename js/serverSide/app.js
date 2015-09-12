@@ -3,14 +3,14 @@
 //var tables = [];
 //var maxTables = 2;
 //var playerDetails = [];
-
+//var testFoo = "string";
 var app = {
         ip: "http://10.70.161.207:8888",
         dbhost: "http://10.70.161.207:8889",
         name: "smallChangeDb",
         db: openDatabase("smallChangeDb", '1.0', 'United Way - Small Change', 1024 * 1024),
     },
-
+    testFoo = '',
     // use functions to interact with the dom
     gui = {
         loadNewInfo: function (dynamicArgument, dynamicDestination) {
@@ -76,15 +76,73 @@ var app = {
         },
         getFromJson: function (folder, fileName) {
             $.getJSON('ajax/' + folder + '/' + fileName + '.json', function (data) {}).done(function (data) {
-                $.each(data.appInfo, function () {
-                    var obj = this;
-                    //callback(obj[checkThis]);
-                    //return
+                function celebrityIDCreator(data) {
+                    var i;
+                    var uniqueID = 100;
+                    for (i = 0; i < data.length; i++) {
+                        theCelebrities[i][key] = function (j) {
+                            return function () {
+                                return uniqueID + j;
+                            }()
+                        }(i);
+                    }
+                    return data;
+                }
+            }).fail(function (jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.log("Request Failed: " + err);
+            });
+        },
+        getFromJsonFoo: function (folder, fileName, key, callBackValue) {
+            var objKey;
+            $.getJSON('ajax/' + folder + '/' + fileName + '.json', function (data) {}).done(function (data) {
 
+                $.each(data[fileName], function () {
+                    var obj = this;
+                    console.log(obj[key]);
+
+                    testFoo = obj[key];
+                    return testFoo;
                 });
             }).fail(function (jqxhr, textStatus, error) {
                 var err = textStatus + ", " + error;
                 console.log("Request Failed: " + err);
+            });
+        },
+        loopArray: function (callBack, data, fileName, key) {
+            var i = "";
+            $.each(data[fileName], function (j) {
+                var obj = this;
+
+                obj[key] = function (j) {
+                    return function () {
+                        return j
+                    }()
+                }(i);
+
+            })(i);
+            return callBack;
+        },
+
+        get: function (folder, fileName, fileType, key) {
+            $.get('/ajax/' + folder + '/' + fileName + '.json', function (data) {
+                // use json here
+            }, 'json')
+        },
+        getJson: function (folder, fileName, key, callBack) {
+            var url = 'ajax/' + folder + '/' + fileName + '.json';
+            $.getJSON(url, sett = function (data) {
+                $.each(data, function () {
+                    testFoo = data[key];
+                });
+                // call callback inside the getJSON callback    
+                callBack && callBack.call(this);
+            });
+        },
+        getval: function (callback) {
+            jQuery.getJSON('http://data.mtgox.com/api/1/BTCUSD/ticker', function (data) {
+                // We can't use .return because return is a JavaScript keyword.
+                callback(data[appInfo]);
             });
         }
     },
@@ -334,17 +392,17 @@ var app = {
         */
         appInfo: function (checkThis, callback) {
             var returnedInfo = "";
-            
-            
-            
-            
-            
+
+
+
+
+
             function getFromJson() {
                 $.getJSON('ajax/json/appInfo.json', function (data) {}).done(function (data) {
                     $.each(data.appInfo, function () {
                         var obj = this;
                         var returnedInfo = obj[checkThis];
-                        console.log (returnedInfo);
+                        console.log(returnedInfo);
                         return returnedInfo;
                     });
 
