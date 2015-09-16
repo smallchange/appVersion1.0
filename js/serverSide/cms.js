@@ -1,5 +1,8 @@
 var adminControls = {
         //used to create new users
+        //ottawaAdmin
+        //Admins
+        //Sponsers
         createNewUser: function (typeOfUser, userName) {
             //Organization Name*
             //User's First Name
@@ -15,8 +18,11 @@ var adminControls = {
         //only one OttawaADm!n && OttawaADm!n type can't change
         changeUserType: function (userName, currentType, newType) {},
         approveAllChanges: function () {
+            //check if version number is higher
+            //if nvn>vn view changes
         },
         rejectAllChanges: function () {
+            //
         },
     },
     userGui = {

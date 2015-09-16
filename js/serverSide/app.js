@@ -3,20 +3,26 @@
 //var tables = [];
 //var maxTables = 2;
 //var playerDetails = [];
-//var testFoo = "string";
+var testFoo;
 var app = {
         ip: "http://10.70.161.207:8888",
         dbhost: "http://10.70.161.207:8889",
         name: "smallChangeDb",
         db: openDatabase("smallChangeDb", '1.0', 'United Way - Small Change', 1024 * 1024),
     },
-    testFoo = '',
     // use functions to interact with the dom
     gui = {
         loadNewInfo: function (dynamicArgument, dynamicDestination) {
             $(dynamicDestination).empty();
             $.get('ajax/html/' + dynamicArgument + 'Info.html', function (data) {
                 $(dynamicDestination).html(data);
+            });
+            return;
+        },
+        htmlToDom: function (folderName, fileName, domDestination) {
+            $(dynamicDestination).empty();
+            $.get('ajax/' + folderName + '/' + fileName + '.html', function (data) {
+                $(domDestination).html(data);
             });
             return;
         },
@@ -30,7 +36,7 @@ var app = {
                 });
         },
         appendNewHtml: function (dynamicArgument, dynamicDestination) {
-            $(dynamicDestination).empty();
+            //$(dynamicDestination).empty();
             $.get('ajax/html/' + dynamicArgument + '.html', function (data) {
                 $(dynamicDestination).html(data);
             });
@@ -54,16 +60,22 @@ var app = {
         },
         slideSwitch: function (slideId) {
             if (slideId === 'slideZero') {
-                $("#slideZero").attr("data-state", "left");
-                $("#slidePositive").attr("data-state", "right");
+                $("#slideZero").attr("data-state", "leftHide");
+                $("#slidePositive").attr("data-state", "showRight");
+                $("#slideNegative").attr("data-state", "startRight");
 
             } else if (slideId === 'slidePositive') {
-                $("#slidePositive").attr("data-state", "left");
-                $("#slideNegative").attr("data-state", "right");
+
+                $("#slidePositive").attr("data-state", "leftHide");
+                $("#slideNegative").attr("data-state", "showRight");
+                $("#slideZero").attr("data-state", "startRight");
 
             } else if (slideId === 'slideNegative') {
-                $("#slideNegative").attr("data-state", "left");
-                $("#slideZero").attr("data-state", "right");
+
+                $("#slideNegative").attr("data-state", "leftHide");
+                $("#slideZero").attr("data-state", "showRight");
+                $("#slidePositive").attr("data-state", "startRight");
+
             }
             return;
         },
@@ -75,26 +87,55 @@ var app = {
             }
         },
         //notWorking
-        getInfo: function (fileName, fileType, key, callBack) {
-            $.get('ajax/' + fileType + '/' + fileName + '.' + fileType + '', function (data) {}).done(function (data) {
-                $.each(data, function (k, v) {
-                    //var obj = this;
-                    //console.log(obj[key]);
-                    //valueHolder = data[fileName][key];
-                    //return obj[key];
-                    //alert (k + '' + v);
-                    if (k == key) {
-                        testFoo = v;
+        getJsonData: function (result) {
+            function lookupRemote(searchTerm) {
+                var defaultReturnValue = 1010;
+                var returnValue = defaultReturnValue;
+                $.getJSON(remote, function (data) {
+                    if (data != null) {
+                        $.each(data.items, function (i, item) {
+                            returnValue = item.libraryOfCongressNumber;
+                        });
                     }
-                    console.log(testFoo);
-                    return testFoo;
+                    OtherFunctionThatUsesTheValue(returnValue);
                 });
+            }
+        },
+
+
+
+
+        getInfo: function (fileName, fileType, key, callback) {
+            $.getJSON('ajax/' + fileType + '/' + fileName + '.' + fileType, function (data) {}).done(function (data) {
+                var valueReturned;
+                $.each(data[fileName], function (i, item) {
+                    var obj = this;
+                    console.log(obj[key]);
+                    testFoo = obj[key];
+                    return obj[key];
+                });
+                //callBack(valueReturned);
             }).fail(function (jqxhr, textStatus, error) {
                 var err = textStatus + ", " + error;
                 console.log("Request Failed: " + err);
             });
 
-        }(),
+        },
+        //put success callback fu
+        getInfoTest: function (fileName, fileType, key) {
+            $.getJSON('ajax/' + fileType + '/' + fileName + '.' + fileType, function (data) {}).done(function (data) {
+                var valueReturned;
+                $.each(data[fileName], function () {
+                    var obj = this;
+                    console.log(obj[key]);
+                    testFoo = obj[key];
+                    return obj[key];
+                });
+            }).fail(function (jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.log("Request Failed: " + err);
+            });
+        },
         getFromJson2: function (folder, fileName, key, callBackValue) {
             var objKey;
             $.getJSON('ajax/' + folder + '/' + fileName + '.json', function (data) {}).done(function (data) {
@@ -144,28 +185,6 @@ var app = {
 
             })(i);
             return callBack;
-        },
-
-        get: function (folder, fileName, fileType, key) {
-            $.get('/ajax/' + folder + '/' + fileName + '.json', function (data) {
-                // use json here
-            }, 'json')
-        },
-        getJson: function (folder, fileName, key, callBack) {
-            var url = 'ajax/' + folder + '/' + fileName + '.json';
-            $.getJSON(url, sett = function (data) {
-                $.each(data, function () {
-                    testFoo = data[key];
-                });
-                // call callback inside the getJSON callback    
-                callBack && callBack.call(this);
-            });
-        },
-        getval: function (callback) {
-            jQuery.getJSON('http://data.mtgox.com/api/1/BTCUSD/ticker', function (data) {
-                // We can't use .return because return is a JavaScript keyword.
-                callback(data[appInfo]);
-            });
         }
     },
     hammer = {
@@ -183,19 +202,19 @@ var app = {
             // listen to events...
             //var swipeGesture = "pan" + directionResult;
             mc.on('pan' + directionResult, function () {
-                object.setAttribute('data-state', '' + directionResult + '');
+                object.setAttribute('data-state', '' + directionResult + 'Hide');
             });
         },
         swipe: function (domObject, direction) {
             var right = direction,
-                left = direction,
+                Left = direction,
                 up = direction,
                 down = direction;
             switch (direction) {
             case right:
                 hammer.api(domObject, direction);
                 break;
-            case left:
+            case Left:
                 hammer.api(domObject, direction);
                 break;
             case up:

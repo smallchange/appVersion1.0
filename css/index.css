@@ -10,9 +10,10 @@ html,
 body {
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
-body section {
+section {
     height: 100%;
     width: 100%;
     position: absolute;
@@ -102,18 +103,12 @@ a:active {
     font-size: 1rem;
 }
 
-.opaqueBlackBackground {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    background: rgba(0, 0, 0, 0.5);
-}
 /*-----------Rotating Slides-----------*/
 
 #slidesWrap {
     width: 100%;
     height: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .dynamicContent {
@@ -121,6 +116,7 @@ a:active {
     width: 100%;
     height: 100%;
 }
+
 #slideNegative[data-state="none"] {
     z-index: 0;
     left: -100%;
@@ -140,7 +136,6 @@ a:active {
     font-size: 2rem;
     padding: 1rem;
 }
-
 /*-----------backgroundColours-----------*/
 
 .redGradient {
@@ -273,13 +268,11 @@ a:active {
     font-size: 2rem;
 }
 
-.transparent {
-    height: 0;
-    margin: 0;
-    color: transparent;
+[data-state="startRight"] {
+    left: 100%;
 }
 
-[data-state="right"] {
+[data-state="showRight"] {
     left: 0%;
     -webkit-animation: right 750ms 1 ease-in-out;
     animation: right 750ms 1 ease-in-out;
@@ -303,31 +296,7 @@ a:active {
     }
 }
 
-[data-state="hideRight"] {
-    left: 100%;
-    -webkit-animation: hideRight 750ms 1 ease-in-out;
-    animation: hideRight 750ms 1 ease-in-out;
-}
-
-@-webkit-keyframes hideRight {
-    0% {
-        left: 0%;
-    }
-    100% {
-        left: 100%;
-    }
-}
-
-@keyframes hideRight {
-    0% {
-        left: 0%;
-    }
-    100% {
-        left: 100%;
-    }
-}
-
-[data-state="left"] {
+[data-state="leftHide"] {
     left: -100%;
     -webkit-animation: left 750ms 1 ease-in-out;
     animation: left 750ms 1 ease-in-out;
@@ -443,76 +412,17 @@ header {
     bottom: 0%;
 }
 
-aside {
+nav {
     position: absolute;
-    right: 100%;
-    overflow: hidden;
+    z-index: 0;
     height: 100%;
     width: 100%;
-}
-
-nav {
-    height: 100%;
     padding: 50% 0;
 }
 
 header img {
     margin: 0 !important;
     padding: 2% 3%;
-}
-
-.navWrap {
-    left: -100%;
-}
-
-aside[data-state="closed"] {
-    z-index: 0;
-    right: 100%;
-    -webkit-animation: closed 750ms 1 ease-in-out;
-    animation: closed 750ms 1 ease-in-out;
-}
-
-@-webkit-keyframes closed {
-    0% {
-        right: 100%;
-    }
-    100% {
-        right: 0%;
-    }
-}
-
-@keyframes closed {
-    0% {
-        right: 0%;
-    }
-    100% {
-        right: 100%;
-    }
-}
-
-aside[data-state="open"] {
-    z-index: 10;
-    right: 100%;
-    -webkit-animation: open 750ms 1 ease-in-out;
-    animation: open 750ms 1 ease-in-out;
-}
-
-@-webkit-keyframes open {
-    0% {
-        right: 100%;
-    }
-    100% {
-        right: 0%;
-    }
-}
-
-@keyframes open {
-    0% {
-        right: 100%;
-    }
-    100% {
-        right: 0%;
-    }
 }
 /*-----------------------index.html-----------------------*/
 
@@ -537,11 +447,15 @@ aside[data-state="open"] {
 }
 
 #modal {
-    overflow: scroll;
-    position: absolute;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    margin: 5%;
+    border: 1px solid red;
     width: 90%;
+    height: 90%;
     border-radius: 5px;
-    margin: 7rem 5% 0;
 }
 
 #modal[data-state="none"] {
@@ -580,13 +494,27 @@ h2 {
 
 #transitionLinksWrap {
     position: absolute;
-    width: 100%;
-    height: 10%;
-    bottom: 10%;
+    width: 30%;
+    height: 1rem;
+    margin: 0 35.5%;
+    bottom: 15%;
 }
 
-.transitionLinksWrap *:first-child {
-    margin-left: 33%;
+#transitionLinksWrap a,
+#transitionLinksWrap a:visited,
+#transitionLinksWrap a:active {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 33.333%;
+    height: 1rem;
+    color: transparent;
+}
+
+.transparent {
+    height: 0rem;
+    margin: 0;
+    color: transparent;
 }
 
 .emptyWhiteCircle {
@@ -601,7 +529,7 @@ h2 {
 #signUpForm input,
 #signUpForm select,
 #linkClickedLogInSection input,
-#modal input{
+#modal input {
     width: 86%;
     margin: 0 5% 5%;
     padding: 2%;
@@ -615,7 +543,7 @@ h2 {
 }
 
 #linkClickedLogInSection input,
-#modal input{
+#modal input {
     background: none;
 }
 
@@ -623,8 +551,7 @@ input[type="submit"],
 #linkClickedLogInSection input[type="submit"],
 #savingsGoalSubmitBtn,
 #linkClickedSignUpFormSection #signUpFormSubmit,
-#modal input[type="submit"]
-{
+#modal input[type="submit"] {
     position: absolute;
     right: 0;
     bottom: 5%;
@@ -641,7 +568,6 @@ resetUser {
 }
 
 #signUpForm {
-    background: #fff;
     width: 90%;
     height: 90%;
     margin: 5%;
@@ -665,6 +591,7 @@ resetUser {
 }
 
 #savingsGoalSubmitBtn {
+    position: relative;
     display: inline-block;
     color: #005ca9;
     background-color: #fff;
@@ -854,6 +781,7 @@ resetUser {
     color: #0f79be;
 }
 #drop {
+    display: none;
     position: fixed;
     bottom: 0;
     z-index: 100;

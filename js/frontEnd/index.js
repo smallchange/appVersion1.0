@@ -33,56 +33,56 @@ $('body').on('click', '.pageLink', function (ev) {
     gui.showNewPage()
 });*/
 
-$("#englishContent").click(function () {
-    $("#languagePreference").attr('data-state', 'left');
+$("body").on('click', '#englishContent', function () {
+    $("#languagePreference").attr('data-state', 'leftHide');
+    hammer.swipe('introSection', 'left');
+    hammer.swipe('instructionsSection', 'left');
+    if (hammer.swipe('messageSection', 'left')){
+        $("#transitionLinksWrap").attr('data-state', 'leftHide');
+    }
+
+    hammer.swipe('linkClickedLogInSection', 'left');
 });
 
 //--------------------swipe gestures
-//hammer.swipe('introSection', 'left');
-//hammer.swipe('instructionsSection', 'left');
-//hammer.swipe('messageSection', 'left');
-//hammer.swipe('signUpSocailSection', 'left')
-//hammer.swipe('linkClickedLogInSection', 'left');
 
-$("#signUpSocail").click(function () {
-    $(".opaqueBlackBackground").attr('data-state', 'right')
-    $("#signUpSocialSection").attr('data-state', 'right');
+$("body").on('click', '#signUpSocail', function () {
+    $("#signUpSocialSection").attr('data-state', 'showRight');
     $("#signUpSocialSection").addClass('z90');
+
+    //hammer.swipe('signUpSocailSection', 'left')
 });
 
-$("#signUp").click(function () {
-    $(".opaqueBlackBackground").attr('data-state', 'right')
-    $("#signUpSection").attr('data-state', 'right');
+$("body").on('click', "#signUp", function () {
+    $("#signUpSection").attr('data-state', 'showRight');
     $("#signUpSection").addClass('z100');
 })
 
-$("#accountLoginLink").click(function () {
-    $(".opaqueBlackBackground").attr('data-state', 'right')
-    $("#linkClickedLogInSection").attr('data-state', 'right');
+$("body").on('click', "#logIn", function () {
+    $("#linkClickedLogInSection").attr('data-state', 'showRight');
     $("#linkClickedLogInSection").addClass('z90');
 })
 
 //--------------------nav functions (fix)
 $('body').on('click', '#navBtn', function (event) {
     event.preventDefault();
-    dynamicArgument = $(this).attr('id');
-    dynamicDestination = "#modal";
-
-    gui.loadNewInfo(dynamicArgument, dynamicDestination);
-    gui.showModal();
+    $('#nav').attr('data-state', 'showRight');
 });
 
 $('body').on('click', '#navBtnBack', function (event) {
-    gui.hideModal();
+    event.preventDefault();
+    $('#nav').attr('data-state', 'leftHide');
+    $('#nav').attr('data-state', 'startRight');
 });
 //--------------------getInfoToDatabases
 $('body').on('click', '#signUpFormSubmit', function (event) {
     event.preventDefault();
-
-    console.log(algorithm.add2Values(40, 50))
+    
         // Cannot show the next page if the info is not valid
         //if (isValid && stringGood)
         //{
+    $('#signUpSection, #signUpOptions').attr('data-state', 'leftHide');
+    
     dynamicArgument = 'savingsGoal';
     dynamicDestination = "#slidePositive";
     slideId = $(this).parents('div').addBack().first().attr('id');
@@ -100,7 +100,7 @@ $('body').on('click', '#signUpFormSubmit', function (event) {
 
 $('body').on('click', '#savingsGoalSubmitBtn', function (event) {
     event.preventDefault();
-    
+    $('#savingsGoalSection').attr('data-state', 'leftHide');
     dynamicArgument = 'chooseChallenge';
     dynamicDestination = "#slideNegative";
     slideId = $(this).parents('div').addBack().first().attr('id');

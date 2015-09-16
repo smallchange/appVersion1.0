@@ -19,7 +19,7 @@ var init = {
 
         switch (dynamicCase) {
         case profileExists:
-            gui.appendNewHtml('newUser', $('#slideNegative'))
+            gui.appendNewHtml('newUser', $('#slideZero'))
             break;
         case noProfile:
             gui.appendNewHtml('newUser', $('#slideZero'))
@@ -43,9 +43,30 @@ var init = {
     },
     initialize: function () {
         //var t = function () { gui.getval( ) 
-        
-        console.log(gui.getInfo('appInfo', 'json', 'profile'));
-        init.initChecks();
+        /*
+                var p = gui.getInfo('appInfo', 'json', 'profile', function(value){
+                    return value;
+                });
+                */
+        var value = "";
+        (function () {
+            $.getJSON('ajax/json/appInfo.json', function (data) {}).done(function (data) {
+                value = data.appInfo[0].profile;
+                /*$.each(data, function (i , k) {
+                    var obj = data.appInfo;
+                    console.log(obj[0].profile);
+                    return obj[0].profile;
+                });*/
+
+                return;
+            }).fail(function (jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.log("Request Failed: " + err);
+            });
+        })();
+        //gui.getInfoTest('appInfo', 'json', 'profile', function () {});
+        console.log(value);
+        init.initChecks(value);
     }
 };
 init.initialize();

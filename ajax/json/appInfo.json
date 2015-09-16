@@ -1,5 +1,5 @@
 {
-
+    "appInfo": [{
         "application": "Small Change",
         "versionNumber": "1.2",
         "profile": "noProfile",
@@ -10,5 +10,5 @@
         "languagePreference": "",
         "userNamePerDevice": "",
         "guestUsername": ""
-
+    }]
 }
