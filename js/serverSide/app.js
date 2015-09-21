@@ -20,7 +20,7 @@ var app = {
             return;
         },
         htmlToDom: function (folderName, fileName, domDestination) {
-            $(dynamicDestination).empty();
+            $(domDestination).empty();
             $.get('ajax/' + folderName + '/' + fileName + '.html', function (data) {
                 $(domDestination).html(data);
             });

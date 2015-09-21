@@ -54,8 +54,9 @@ $("body").on('click', '#signUpSocail', function () {
 });
 
 $("body").on('click', "#signUp", function () {
+    gui.htmlToDom('', '');
     $("#signUpSection").attr('data-state', 'showRight');
-    $("#signUpSection").addClass('z100');
+    $("#signUpSection").addClass('z90');
 })
 
 $("body").on('click', "#logIn", function () {
@@ -63,6 +64,19 @@ $("body").on('click', "#logIn", function () {
     $("#linkClickedLogInSection").addClass('z90');
 })
 
+$("body").on('click', '#closeBtn', function() {
+    $("#linkClickedLogInSection").attr('data-state', 'leftHide');
+});
+
+$("body").on('click', '#emailButton', function() {
+   $("#splitForm").attr('data-state', 'showRight');
+    $("#linkClickedLogInSection").addClass('z90');
+});
+
+$("body").on('click', '#closeSignUp', function() {
+   $("#signUpSection").attr('data-state', 'leftHide');
+    $("#linkClickedLogInSection").addClass('z90');
+});
 //--------------------nav functions (fix)
 $('body').on('click', '#navBtn', function (event) {
     event.preventDefault();

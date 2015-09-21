@@ -43,9 +43,8 @@
     <img class="hw25" alt="Small Change App Logo" src="img/svgs/whiteSmallChangeLogoNoTxt.svg">
 
     <div class="button">
-        <a href="#" id="signUpSocail" class="modalLink">Social Media</a>
+        <a href="#" id="logIn" class="modalLink">Log in</a>
         <a href="#" id="signUp" class="modalLink">Sign Up</a>
-        <a href="#" id="logIn" class="modalLink">Have an account? Log in</a>
     </div>
 
     <p class="legalInfo">By proceeding you agree to Small Change's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
@@ -66,9 +65,27 @@
     </p>
 </section>
 
-<section class="hw90 bkrTwoColors" id="signUpSection" data-state="left">
-    <h2 class="transparent">Sign Up Form</h2>
+<section class="hw100 bkrTwoColors" id="signUpSection" data-state="left">
+    <div class="closeTitle">
+        <div id="closeSignUp">x</div>
+        <h5>Sign Up</h5>
+    </div>
 
+    <div class="button blueButton clear">
+        <a href="#" data-role="link" id="facebookSignupButton">Facebook</a>
+        <a href="#" data-role="link" id="twitterSignupButton">Twitter</a>
+        <a href="#" data-role="link" id="googleSignupButton">Google</a>
+    </div>
+
+    <p>
+        <span class="lineAcross">or</span>
+    </p>
+
+    <a href="#" data-role="link" id="emailButton">Email</a>
+
+</section>
+
+<div id="splitForm" data-state="none z100">
     <form id="signUpForm" class="hw100">
         <input type="text" id="firstName" placeholder="Firstname">
         <input type="text" id="lastName" placeholder="Lastname">
@@ -92,13 +109,26 @@
         <!--<a id="signUpFormSubmit" href="../www/savingsGoal.html" class="borderRadius">Submit</a>-->
         <input class="borderRadius" id="signUpFormSubmit" type="submit" value="Submit">
     </form>
+</div>
 
-</section>
 
-<section class="hw90 bkrTwoColors" id="linkClickedLogInSection" data-state="left">
-    <form class="hw100">
-        <img class="hw25" alt="Small Change App Logo" src="img/svgs/redSmallChangeLogoNoTxt.svg">
+<section class="hw100 bkrTwoColors" id="linkClickedLogInSection" data-state="left">
+    <div class="closeTitle">
+        <div id="closeBtn">x</div>
+        <h5>Log In</h5>
+    </div>
 
+    <div class="button blueButton clear">
+        <a href="#" data-role="link" id="facebookSignupButton">Facebook</a>
+        <a href="#" data-role="link" id="twitterSignupButton">Twitter</a>
+        <a href="#" data-role="link" id="googleSignupButton">Google</a>
+    </div>
+
+    <p>
+        <span class="lineAcross">or</span>
+    </p>
+
+    <form class="">
         <input type="text" name="username" placeholder="Username or E-mail">
         <input type="password" name="loginPsw" placeholder="Password">
 
