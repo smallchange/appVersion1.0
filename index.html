@@ -15,23 +15,23 @@
 
     <script type="text/javascript" charset="utf-8" src="js/lib/jquery-1.11.3.min.js" defer></script>
     <script type="text/javascript" charset="utf-8" src="js/lib/hammer.min.js" defer></script>
+    <script type="text/javascript" charset="utf-8" src="js/lib/jquery.foggy.min.js" defer></script>
     <script type="text/javascript" charset="utf-8" src="js/serverSide/app.js" defer></script>
     <script type="text/javascript" charset="utf-8" src="js/frontEnd/index.js" defer></script>
     <script type="text/javascript" charset="utf-8" src="js/init.js" defer></script>
 </head>
 
 <body>
+    <div id="slidesWrap">
+        <section id="slideNegative" class="dynamicContent" data-role="page" data-state="none"></section>
 
-    <section id="slidesWrap">
-        <div id="slideNegative" class="dynamicContent" data-role="page" data-state="none"></div>
+        <section id="slideZero" class="dynamicContent" data-role="page" data-state="none"></section>
 
-        <div id="slideZero" class="dynamicContent" data-role="page" data-state="none"></div>
+        <section id="slidePositive" class="dynamicContent" data-role="page" data-state="none"></section>
+    </div>
 
-        <div id="slidePositive" class="dynamicContent" data-role="page" data-state="none"></div>
-    </section>
-
-    <div id="modal" class="bkrTwoColors" data-state="none"></div>
-
+    <section id="modal" data-state="none"></section>
+    
     <section id="nav" data-state="startRight">
         <header class="z100 darkerRedBkr" id="headerOnPage">
             <img class="h70 left" alt="Small Change Application Logo" src="img/svgs/whiteSmallChangeLogoNoTxt.svg">
@@ -50,7 +50,7 @@
             <a href="#" data-role="link">Help Me</a>
         </nav>
     </section>
-
+    
     <a href="#" id="drop">Drop Table</a>
 </body>
 

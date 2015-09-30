@@ -3,8 +3,9 @@
 //var tables = [];
 //var maxTables = 2;
 //var playerDetails = [];
-var testFoo;
-var app = {
+var clientWidth,
+    clientHeight,
+    app = {
         ip: "http://10.70.161.207:8888",
         dbhost: "http://10.70.161.207:8889",
         name: "smallChangeDb",
@@ -12,19 +13,15 @@ var app = {
     },
     // use functions to interact with the dom
     gui = {
-        loadNewInfo: function (dynamicArgument, dynamicDestination) {
-            $(dynamicDestination).empty();
-            $.get('ajax/html/' + dynamicArgument + 'Info.html', function (data) {
-                $(dynamicDestination).html(data);
+        setView: function () {
+            var clientWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+            var clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+            $('body').css({
+                'width': clientWidth,
+                'height': clientHeight
             });
-            return;
-        },
-        htmlToDom: function (folderName, fileName, domDestination) {
-            $(domDestination).empty();
-            $.get('ajax/' + folderName + '/' + fileName + '.html', function (data) {
-                $(domDestination).html(data);
-            });
-            return;
         },
         loadScript: function (dynamicScript) {
             $.getScript("ajax/scripts/" + dynamicScript + ".js")
@@ -35,196 +32,126 @@ var app = {
                     $("div.log").text("Triggered ajaxError handler.");
                 });
         },
-        appendNewHtml: function (dynamicArgument, dynamicDestination) {
-            //$(dynamicDestination).empty();
-            $.get('ajax/html/' + dynamicArgument + '.html', function (data) {
-                $(dynamicDestination).html(data);
+        htmlToDom: function (folderName, fileName, domDestination, callBack) {
+            $.get('ajax/' + folderName + '/' + fileName + '.html', function () {}).done(function (data) {
+                $('#' + domDestination + '').html(data);
+            }).fail(function (er) {
+                console.log(er);
             });
-            return;
-        },
-        showModal: function () {
-            $("#modal").attr("data-state", "right");
-            $("#modal").css("z-index", "100");
-
-            return;
-        },
-        showModalBkr: function () {
-            $("#blackCover").attr("data-state", "right");
-            $('#blackCover').css("z-index", "90");
-
-            return;
-        },
-        hideModal: function () {
-            $("#modal").attr("data-state", "hideRight");
-            return;
-        },
-        slideSwitch: function (slideId) {
-            if (slideId === 'slideZero') {
-                $("#slideZero").attr("data-state", "leftHide");
-                $("#slidePositive").attr("data-state", "showRight");
-                $("#slideNegative").attr("data-state", "startRight");
-
-            } else if (slideId === 'slidePositive') {
-
-                $("#slidePositive").attr("data-state", "leftHide");
-                $("#slideNegative").attr("data-state", "showRight");
-                $("#slideZero").attr("data-state", "startRight");
-
-            } else if (slideId === 'slideNegative') {
-
-                $("#slideNegative").attr("data-state", "leftHide");
-                $("#slideZero").attr("data-state", "showRight");
-                $("#slidePositive").attr("data-state", "startRight");
-
-            }
-            return;
-        },
-        ifElse: function (valueIn, trueValue, falseValue, trueRun, falseRun) {
-            if (valueIn == trueValue) {
-                return returnTrue;
-            } else {
-                return falseUse;
+            if (callBack == null) {} else {
+                callBack();
             }
         },
-        //notWorking
-        getJsonData: function (result) {
-            function lookupRemote(searchTerm) {
-                var defaultReturnValue = 1010;
-                var returnValue = defaultReturnValue;
-                $.getJSON(remote, function (data) {
-                    if (data != null) {
-                        $.each(data.items, function (i, item) {
-                            returnValue = item.libraryOfCongressNumber;
-                        });
-                    }
-                    OtherFunctionThatUsesTheValue(returnValue);
-                });
-            }
+        slideSwitch: function (slideType, slideNum) {
+
+            var negative = slideType + 'Negative',
+                zero = slideType + 'Zero',
+                positive = slideType + 'Positive';
+
+            switch (slideNum) {
+            case 'Zero':
+                $("#" + zero).attr("data-state", "hideLeft");
+                $("#" + positive).attr("data-state", "showRight");
+                $("#" + negative).attr("data-state", "startRight");
+                break;
+            case 'Positive':
+                $("#" + positive).attr("data-state", "hideLeft");
+                $("#" + negative).attr("data-state", "showRight");
+                $("#" + zero).attr("data-state", "startRight");
+                break;
+            case 'Negative':
+                $("#" + negative).attr("data-state", "hideLeft");
+                $("#" + zero).attr("data-state", "showRight");
+                $("#" + positive).attr("data-state", "startRight");
+                break;
+            };
+            setTimeout(function () {
+                $('#' + slideType + slideNum + '').empty();
+            }, 750);
         },
+        loadSwitch: function (folderName, fileName, slideType, ev) {
+            slideNum = $(ev.target).parents('section').addBack().first().attr('id').slice(slideType.length);
 
+            var negative = slideType + 'Negative',
+                zero = slideType + 'Zero',
+                positive = slideType + 'Positive';
 
-
-
-        getInfo: function (fileName, fileType, key, callback) {
-            $.getJSON('ajax/' + fileType + '/' + fileName + '.' + fileType, function (data) {}).done(function (data) {
-                var valueReturned;
-                $.each(data[fileName], function (i, item) {
-                    var obj = this;
-                    console.log(obj[key]);
-                    testFoo = obj[key];
-                    return obj[key];
-                });
-                //callBack(valueReturned);
-            }).fail(function (jqxhr, textStatus, error) {
-                var err = textStatus + ", " + error;
-                console.log("Request Failed: " + err);
+            switch (slideNum) {
+            case 'Zero':
+                domDestination = positive
+                break;
+            case 'Positive':
+                domDestination = negative
+                break;
+            case 'Negative':
+                domDestination = zero
+                break;
+            }
+            gui.htmlToDom(folderName, fileName, domDestination, function () {
+                gui.slideSwitch(slideType, slideNum);
             });
 
         },
-        //put success callback fu
-        getInfoTest: function (fileName, fileType, key) {
+        loadModal: function (fileName) {
+            gui.htmlToDom('html/elements', 'newSlides', 'modal', function () {
+                gui.htmlToDom('html/modals', fileName, 'newZero', function () {
+                    $('#modal').attr('data-state', 'scrollUp');
+                });
+
+            });
+        },
+        loadModal2: function (fileName) {
+            gui.htmlToDom('html/modals', fileName, 'modal2', function () {
+                $('#modal2').attr('data-state', 'scrollUpExtra');
+            });
+        },
+        //returns value through callBack from JSON, input strings in arguements
+        returnJson: function (fileName, fileType, key, callBack) {
             $.getJSON('ajax/' + fileType + '/' + fileName + '.' + fileType, function (data) {}).done(function (data) {
                 var valueReturned;
                 $.each(data[fileName], function () {
                     var obj = this;
-                    console.log(obj[key]);
-                    testFoo = obj[key];
-                    return obj[key];
+                    callBack(obj[key]);
                 });
             }).fail(function (jqxhr, textStatus, error) {
                 var err = textStatus + ", " + error;
                 console.log("Request Failed: " + err);
             });
-        },
-        getFromJson2: function (folder, fileName, key, callBackValue) {
-            var objKey;
-            $.getJSON('ajax/' + folder + '/' + fileName + '.json', function (data) {}).done(function (data) {
-                function celebrityIDCreator(data) {
-                    var i;
-                    var uniqueID = 100;
-                    for (i = 0; i < data.length; i++) {
-                        theCelebrities[i][key] = function (j) {
-                            return function () {
-                                return uniqueID + j;
-                            }()
-                        }(i);
-                    }
-                    return data;
-                }
-            }).fail(function (jqxhr, textStatus, error) {
-                var err = textStatus + ", " + error;
-                console.log("Request Failed: " + err);
-            });
-        },
-        getFromJsonFoo: function (folder, fileName, key, callBackValue) {
-            var objKey;
-            $.getJSON('ajax/' + folder + '/' + fileName + '.json', function (data) {}).done(function (data) {
-
-                $.each(data[fileName], function () {
-                    var obj = this;
-                    console.log(obj[key]);
-
-                    testFoo = obj[key];
-                    return testFoo;
-                });
-            }).fail(function (jqxhr, textStatus, error) {
-                var err = textStatus + ", " + error;
-                console.log("Request Failed: " + err);
-            });
-        },
-        loopArray: function (callBack, data, fileName, key) {
-            var i = "";
-            $.each(data[fileName], function (j) {
-                var obj = this;
-
-                obj[key] = function (j) {
-                    return function () {
-                        return j
-                    }()
-                }(i);
-
-            })(i);
-            return callBack;
         }
     },
     hammer = {
-        api: function (dynamicObject, directionResult) {
-            var options = {
+        swipe: function (dynamicObject, directionResult, callBack) {
+            options = {
                 dragLockToAxis: true,
                 dragBlockHorizontal: true
             };
             // create a simple instance
             // by default, it only adds horizontal recognizers
-            var object = document.getElementById('' + dynamicObject + '');
-            var mc = new Hammer(object);
+            object = document.getElementById('' + dynamicObject + '');
+            mc = new Hammer(object);
             //var mc = new Hammer(object, options);
 
             // listen to events...
             //var swipeGesture = "pan" + directionResult;
             mc.on('pan' + directionResult, function () {
-                object.setAttribute('data-state', '' + directionResult + 'Hide');
+                switch ('' + directionResult + '') {
+                case 'right':
+                    break;
+                case 'left':
+                    object.setAttribute('data-state', 'hideLeft');
+                    break;
+                case 'up':
+                    object.setAttribute('data-state', 'scrollUp');
+                    break;
+                case 'down':
+                    object.setAttribute('data-state', 'scrollDown');
+                    break;
+                }
+                if (callBack == null) {} else {
+                    callBack();
+                }
             });
         },
-        swipe: function (domObject, direction) {
-            var right = direction,
-                Left = direction,
-                up = direction,
-                down = direction;
-            switch (direction) {
-            case right:
-                hammer.api(domObject, direction);
-                break;
-            case Left:
-                hammer.api(domObject, direction);
-                break;
-            case up:
-                hammer.api(domObject, direction);
-                break;
-            case down:
-                hammer.api(domObject, direction);
-                break;
-            }
-        }
     },
     // use functions to have interactions based on time and date
     calender = {
@@ -250,7 +177,7 @@ var app = {
     // use functions to get information from dom
     valuesFromDom = {
         //pull stuff from here
-        addtogoal: function () {
+        addtogoal: function (ev) {
             document.querySelector("[data-role=overlay]").style.display = "none";
             ev.preventDefault();
             document.querySelector("#datebox").innerHTML = "";
@@ -289,7 +216,9 @@ var app = {
             document.querySelector("#datebox").appendChild(timeLeft);
         },
         getInput: function (nameOfInput) {
-            var value = $.trim(document.getElementById(nameOfInput).value);
+            console.log(nameOfInput);
+            var value = $("#" + nameOfInput).val();
+            console.log(value);
             return value;
         },
         getDate: function () {}
@@ -302,6 +231,9 @@ var app = {
             if (tableName == "profile") {
                 sql = 'CREATE TABLE profile (person_id INTEGER PRIMARY KEY AUTOINCREMENT, firstName TEXT(50), lastName TEXT(50), ageRange TEXT, email TEXT, psw TEXT, userLvl INTEGER, deadline TEXT, goalPrice INTEGER, goalName TEXT(255));';
                 //t is still union, r is inserted stuff
+                //level out of 10 how many hearts 
+                //total hearts you have
+                //pic src
                 app.db.transaction(function (trans) {
                     trans.executeSql(sql, [], function (t, r) {
                             output("Profile table create successfully");
@@ -315,7 +247,7 @@ var app = {
             };
 
             if (tableName == "challenges") {
-                sql = 'CREATE TABLE ' + tableName + ' (challenge_id INTEGER PRIMARY KEY, challenge_en TEXT(50), challenge_fr TEXT(100), price INTEGER);';
+                sql = 'CREATE TABLE ' + tableName + ' (challenge_id TEXT(50) PRIMARY KEY, challenge_name TEXT(100), challenge_desc TEXT(200), challenge_imgSrc TEXT(), price INTEGER);';
 
                 /*
 			app.db.transaction(function (trans) {
@@ -364,11 +296,64 @@ var app = {
                         document.querySelector("#playerchallenges").appendChild(p);
                     }
                 });
+        },
+        getLocalInfo: function (tableName, rowId, columnId, callBack) {
+            //sql = 'SELECT' + columnId + ' FROM ' + tableName ' WHERE ' + rowId + ; 
+            var stringReturned = rowId + columnId + tableName;
+            console.log(stringReturned);
         }
     },
+    //get info from Input from userSignUp page
     userActions = {
-        //get info from Input from userSignUp page
-        insertProfileInfo: function () {
+        createProfile: function (table) {
+            var sql = "INSERT INTO profile(email, psw, userLvl) VALUES('" + valuesFromDom.getInput("email") + "', '" + valuesFromDom.getInput("psw") + "', 0)";
+            app.db.transaction(function (trans) {
+                trans.executeSql(sql, [],
+                    function (tx, rs) {
+                        output("inserted some stuff");
+                    },
+                    function (tx, err) {
+                        //failed to run query
+                        output(err.message);
+                    });
+                return sql;
+            });
+        },
+        createProfile2: function (table) {
+            console.log($('#signUpForm option2:selected').attr('value'));
+            var sql = "UPDATE profile SET firstName = '" + valuesFromDom.getInput("firstName") + "', lastName = '" + valuesFromDom.getInput("lastName") + "', ageRange = '" + $('#signUpForm option2:selected').attr('value') + "'";
+            app.db.transaction(function (trans) {
+                trans.executeSql(sql, [],
+                    function (tx, rs) {
+                        output("inserted some stuff");
+                    },
+                    function (tx, err) {
+                        //failed to run query
+                        output(err.message);
+                    });
+                return sql;
+            });
+        },        
+        sqUpdate: function (inputType) {
+            var sql = "UPDATE profile SET " + inputType + " = " + valuesFromDom.getInput(inputType) + " WHERE person_id = 1 ";
+            app.db.transaction(function (trans) {
+                trans.executeSql(sql, [],
+                    function (tx, rs) {
+                        output("inserted some stuff");
+                    },
+                    function (tx, err) {
+                        //failed to run query
+                        output(err.message);
+                    });
+                return sql;
+            });
+        },
+        //research
+        insertNew: function () {
+            var sql = "INSERT INTO Med(MedID) VALUES (?)";
+            tx.executeSql(sql, [dataObj[i].MedID]);
+        },
+        insertProfileInfoOrig: function (table) {
             var sql = "INSERT INTO profile(firstName, lastName, ageRange, email, psw, userLvl) VALUES('" + valuesFromDom.getInput("firstName") + "', '" + valuesFromDom.getInput("lastName") + "', '" + $('#signUpForm option:selected').attr('value') + "', '" + valuesFromDom.getInput("email") + "', '" + valuesFromDom.getInput("psw") + "', 0)";
             app.db.transaction(function (trans) {
                 trans.executeSql(sql, [],
@@ -652,56 +637,3 @@ function insertChallenges(ev) {
             output("inserted some stuff");
         });
 }
-
-/*
-    var leanPlum = {
-    	init: function(){
-    	// research on how to write data to JSON FILE 
-    	
-    	alert("it works"); 
-    	// This value should be set to true only if you're developing on your server.
-    	var isDevelopmentMode = true;
-    	// Sample variables. This can be any JSON object.
-    	var variables = {
-    		items: {
-    			color: 'red',
-    			size: 20,
-    			showBadges: true
-    		},
-    		showAds: true
-    		};
-     
-
-    	// We've inserted your Small Change API keys here for you :)
-    	if (isDevelopmentMode) {
-    		Leanplum.setAppIdForDevelopmentMode("app_D74zpdfYX292l6A7Sh29wa7KZjtfzoR3rZhmlIHP0UE", "dev_UKDZVbEbE8kKutg8WRTlwfacwuXhzW0baEk0M2IxVSs");
-    		} else {
-    			Leanplum.setAppIdForProductionMode("app_D74zpdfYX292l6A7Sh29wa7KZjtfzoR3rZhmlIHP0UE", "prod_dWvVUuRF5JqJiSpR7rtBC5Cn2rMRgKpwegJKggL3YOU");
-    		}
-    		
-    		Leanplum.setVariables(variables);
-    		Leanplum.start(function(success) {
-    			console.log('Success: ' + success);
-    			console.log('Variables', Leanplum.getVariables());
-    		});	
-    	},
-    	pushMsg: function(){
-    		Leanplum.setVariables({
-    			StoreTitle: "Powerup Store",
-    			Items: [{
-    				name: "Speed Boost",
-    				price: 100
-    				}, {
-    					name: "Health Boost",
-    					price: 150
-    				}
-    			]
-    		});
-    	},
-    	userSession: function(id){
-    	id = user.id; 
-    	Leanplum.start(user.id);
-    	// Start with user ID and attributes.
-    	Leanplum.start(id, {'language': user.language}, {'email': user.email});	
-    	}
-    }*/

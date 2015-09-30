@@ -7,76 +7,92 @@ var dynamicId,
     numPages = 0,
     pageId = "";
 
-//--------------------gui run
-/*$('body').on('click', '.modalLink', function (ev) {
-    ev.preventDefault;
-    dynamicId = $(this).attr('id');
-    dynamicClass = $(this).attr('class').substr(0, 5);
+//--------------------intro run
 
-    gui.loadNewInfo(dynamicId, dynamicClass);
-    gui.showModule();
+$("body").on('click', '#englishContent', function (ev) {
 
-    return
+    gui.loadSwitch('html/intro', 'intro1', 'slide', ev);
+
+    gui.htmlToDom('html/intro', 'intro2', 'slideNegative', function () {
+        hammer.swipe('slidePositive', 'left', function () {
+            gui.htmlToDom('html/intro', 'intro3', 'slideZero', function () {
+                gui.slideSwitch('slide', 'Positive');
+                gui.htmlToDom('html/intro', 'introOptions', 'slideZero', function () {
+                    hammer.swipe('slideNegative', 'left', function () {
+                        gui.slideSwitch('slide', 'Negative');
+                    });
+                })
+            });
+        });
+
+    });
+    /*
+            hammer.swipe('slideNegative', 'left', function () {
+                gui.htmlToDom('html/intro', 'intro3', 'slideZero');
+                gui.slideSwitch('slideNegative');
+
+                hammer.swipe('slideZero', 'left', function () {
+                    gui.htmlToDom('html/intro', 'introOptions', 'slidePositive');
+                    gui.slideSwitch('slideZero');
+                });
+            });
+            */
 });
 
-$('body').on('click', '.pageLink', function (ev) {
-    ev.preventDefault;
 
-    dynamicId = $(this).attr('id');
-    dynamicClass = $(this).attr('class').substr(0, 4);
+//hammer.swipe('introSection', 'left');
+//hammer.swipe('instructionsSection', 'left');
+//if (hammer.swipe('messageSection', 'left')) {
+//  $("#circleNav").attr('data-state', 'leftHide');
+//}
 
-    dynamicParent = $(this).parents('div').addBack().first();
-    slideId = $(this).parent('div').addBack().first().attr('id');
+//gui.htmlToDom('html/intro', 'intro2', 'slideNegative');
+//hammer.swipe('logInSection', 'left');
+//hammer.swipe('introSection', 'left', 'loadSwitch');
 
-    gui.loadNewInfo(dynamicId, dynamicClass);
-    gui.slideSwitch(slideId);
-    gui.showNewPage()
-});*/
 
-$("body").on('click', '#englishContent', function () {
-    $("#languagePreference").attr('data-state', 'leftHide');
-    hammer.swipe('introSection', 'left');
-    hammer.swipe('instructionsSection', 'left');
-    if (hammer.swipe('messageSection', 'left')){
-        $("#transitionLinksWrap").attr('data-state', 'leftHide');
-    }
-
-    hammer.swipe('linkClickedLogInSection', 'left');
+//--------------------general functionality
+//slide modal down
+$("body").on('click', '#closeBtn', function () {
+    $('#modal, #modal2').attr('data-state', 'scrollDown');
+    setTimeout(function () {
+        $('#modal, #modal2').empty();
+    }, 750);
 });
 
-//--------------------swipe gestures
-
-$("body").on('click', '#signUpSocail', function () {
-    $("#signUpSocialSection").attr('data-state', 'showRight');
-    $("#signUpSocialSection").addClass('z90');
-
-    //hammer.swipe('signUpSocailSection', 'left')
+//--------------------logIn or signUp
+$("body").on('click', '#logIn', function () {
+    gui.loadModal('logIn');
 });
 
-$("body").on('click', "#signUp", function () {
-    gui.htmlToDom('', '');
-    $("#signUpSection").attr('data-state', 'showRight');
-    $("#signUpSection").addClass('z90');
-})
-
-$("body").on('click', "#logIn", function () {
-    $("#linkClickedLogInSection").attr('data-state', 'showRight');
-    $("#linkClickedLogInSection").addClass('z90');
-})
-
-$("body").on('click', '#closeBtn', function() {
-    $("#linkClickedLogInSection").attr('data-state', 'leftHide');
+$("body").on('click', '#signUp', function () {
+    gui.loadModal('signUp');
 });
 
-$("body").on('click', '#emailButton', function() {
-   $("#splitForm").attr('data-state', 'showRight');
-    $("#linkClickedLogInSection").addClass('z90');
+$("body").on('click', '#emailSignUp', function () {
+    gui.htmlToDom('html/modals', 'userInfoForm', 'newPositive', function () {
+        gui.slideSwitch('new', 'Zero');
+    });
 });
 
-$("body").on('click', '#closeSignUp', function() {
-   $("#signUpSection").attr('data-state', 'leftHide');
-    $("#linkClickedLogInSection").addClass('z90');
+//--------------------getInfoToDatabases
+$("body").on('click', '#signUpFormSubmit', function (ev) {
+    ev.preventDefault();
+    serverActions.createTables("profile");
+    userActions.createProfile();
+    
+    gui.htmlToDom('html/modals', 'userInfoForm2', 'newNegative', function () {
+        gui.slideSwitch('new', 'Positive');
+        gui.htmlToDom('html', 'chooseChallengeInfo', 'newZero');
+    });
 });
+
+$("body").on('click', '#signUpFormSubmit2', function (ev) {
+    ev.preventDefault();
+    userActions.createProfile2();
+    //gui.slideSwitch('new', 'Zero');
+});
+
 //--------------------nav functions (fix)
 $('body').on('click', '#navBtn', function (event) {
     event.preventDefault();
@@ -88,83 +104,13 @@ $('body').on('click', '#navBtnBack', function (event) {
     $('#nav').attr('data-state', 'leftHide');
     $('#nav').attr('data-state', 'startRight');
 });
-//--------------------getInfoToDatabases
-$('body').on('click', '#signUpFormSubmit', function (event) {
-    event.preventDefault();
-    
-        // Cannot show the next page if the info is not valid
-        //if (isValid && stringGood)
-        //{
-    $('#signUpSection, #signUpOptions').attr('data-state', 'leftHide');
-    
-    dynamicArgument = 'savingsGoal';
-    dynamicDestination = "#slidePositive";
-    slideId = $(this).parents('div').addBack().first().attr('id');
-    serverActions.createTables("profile");
-    serverActions.createTables("challenges");
-    gui.loadNewInfo(dynamicArgument, dynamicDestination);
-    gui.slideSwitch(slideId);
-    userActions.insertProfileInfo();
-    //} 
-    //else 
-    //return; 
 
 
-});
 
-$('body').on('click', '#savingsGoalSubmitBtn', function (event) {
-    event.preventDefault();
-    $('#savingsGoalSection').attr('data-state', 'leftHide');
-    dynamicArgument = 'chooseChallenge';
-    dynamicDestination = "#slideNegative";
-    slideId = $(this).parents('div').addBack().first().attr('id');
-    gui.loadNewInfo(dynamicArgument, dynamicDestination);
-    gui.slideSwitch(slideId);
-});
-
-$('body').on('click', '.userIndividualChallengesSection', function (ev) {
-    ev.preventDefault();
-
-    challengeChosen = $(this).addBack().attr('id');
-    dynamicDestination = $('#modal');
-    if (challengeChosen == 'ownChallenge') {
-        gui.loadNewInfo(challengeChosen, dynamicDestination);
-        gui.showModal();
-    } else {
-        load = "preSetChallenge"
-        gui.loadNewInfo(load, dynamicDestination);
-        $('#dynamicWord').append(challengeChosen);
-        gui.showModal();
-    }
-});
-
-$('body').on('click', '#customChallengeSubmit', function (ev) {
-    ev.preventDefault();
-    slideId = 'slideNegative';
-    dynamicArgument = 'myChallenges';
-    dynamicDestination = "#slideZero";
-
-    gui.hideModal();
-    gui.loadNewInfo(dynamicArgument, dynamicDestination);
-    gui.slideSwitch(slideId);
-});
-$('body').on('click', '#acceptChallenge', function (ev) {
-    ev.preventDefault();
-    slideId = 'slideNegative';
-    dynamicArgument = 'myChallenges';
-    dynamicDestination = "#slideZero";
-    challengesArg = "challengeLeft";
-    challengeDes = "userIndividualChallengesSection";
-
-    gui.hideModal();
-    gui.loadNewInfo(dynamicArgument, dynamicDestination);
-    gui.appendNewInfo(challengesArg, challengeDes);
-    gui.slideSwitch(slideId);
-});
 
 $('#drop').click(function (event) {
     event.preventDefault();
 
-    SQLite.dropTable("challenges");
-    SQLite.dropTable("profile");
+    serverActions.dropTable("challenges");
+    serverActions.dropTable("profile");
 });

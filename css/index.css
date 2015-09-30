@@ -8,8 +8,6 @@
 
 html,
 body {
-    height: 100%;
-    width: 100%;
     overflow: hidden;
 }
 
@@ -42,11 +40,12 @@ section {
 /*-----------General CSS-----------*/
 
 p {
-    font-family: 'Avenir-Light', sans-serif;
+    font-family: sans-serif;
+    font-size: 1rem;
     text-align: center;
-    color: white;
-    width: 80%;
-    margin: 0 10%;
+    color: #fff;
+    width: 85%;
+    margin: 0 7.5%;
 }
 
 a,
@@ -68,9 +67,9 @@ a:active {
     text-align: center;
     text-transform: capitalize;
     text-decoration: none;
-    padding: 0.5rem 0;
-    margin: 0 15% 3%;
-    width: 70%;
+    padding: 1rem 0;
+    margin: 0 7.5% 3%;
+    width: 85%;
 }
 
 .blueButton a,
@@ -80,6 +79,10 @@ a:active {
     background: #005ca9;
 }
 
+.button a:last-child {
+    margin-bottom: 0;
+}
+
 .circleCrop {
     -webkit-clip-path: circle(40% at 50% 50%);
     clip-path: circle(40% at 50% 50%);
@@ -87,34 +90,34 @@ a:active {
     margin: 3rem 10% 1rem;
 }
 
-.specialInput {
-    width: 95%;
-    margin: 2.5%;
-    font-size: 5rem;
-    font-family: 'Avenir-Book', cursive;
-    text-align: center;
-    color: #d5dcef;
-    border: none;
+#blurW,
+#blurB {
+    height: 100%;
+    width: 100%;
     position: absolute;
-    top: 20%;
+    top: 0;
+    right: 0;
+    z-index: 5;
+    background: white;
 }
 
-.specialInput[type="date"] {
-    font-size: 1rem;
+#blurB {
+    z-index: 4;
 }
 
-/*-----------Rotating Slides-----------*/
+.clearFix:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+}
+/*-----------Rotating Slides - Modal-----------*/
 
-#slidesWrap {
+#slidesWrap,
+#newSlides {
     width: 100%;
     height: 100%;
     overflow: hidden;
-}
-
-.dynamicContent {
-    position: absolute;
-    width: 100%;
-    height: 100%;
 }
 
 #slideNegative[data-state="none"] {
@@ -123,19 +126,57 @@ a:active {
 }
 
 #slideZero[data-state="none"] {
-    z-index: 10;
+    z-index: 1;
 }
 
 #slidePositive[data-state="none"] {
-    z-index: 20;
+    z-index: 2;
     left: 100%;
 }
 
-.next,
-.prev {
-    font-size: 2rem;
-    padding: 1rem;
+.dynamicContent {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
+
+.dynamicContent div {
+    width: 100%;
+    height: 100%;
+}
+
+#modal {
+    z-index: 3;
+}
+
+#modal2 {
+    height: 90%;
+    z-index: 4;
+}
+
+#modal[data-state="none"],
+#modal2[data-state="none"]{
+    top: 100%;
+}
+
+#newNegative,
+#newZero,
+#newPositive {
+    z-index: 6;
+}
+
+
+#newNegative[data-state="none"] {
+    left: -100%;
+}
+
+#newZero[data-state="none"] {
+}
+
+#newPositive[data-state="none"] {
+    left: 100%;
+}
+
 /*-----------backgroundColours-----------*/
 
 .redGradient {
@@ -195,7 +236,7 @@ a:active {
 }
 
 .bkrTwoColors {
-    background: linear-gradient(to bottom, #ffffff 85%, #e8edf0 15%);
+    background: linear-gradient(to bottom, #ffffff 92.5%, #e8edf0 10%);
     background-repeat: no-repeat;
 }
 
@@ -260,14 +301,6 @@ a:active {
     bottom: 1%;
 }
 
-.txtSize1-25 {
-    font-size: 1.25rem;
-}
-
-.txt2rem {
-    font-size: 2rem;
-}
-
 [data-state="startRight"] {
     left: 100%;
 }
@@ -296,7 +329,7 @@ a:active {
     }
 }
 
-[data-state="leftHide"] {
+[data-state="hideLeft"] {
     left: -100%;
     -webkit-animation: left 750ms 1 ease-in-out;
     animation: left 750ms 1 ease-in-out;
@@ -317,6 +350,78 @@ a:active {
     }
     100% {
         left: -100%;
+    }
+}
+
+[data-state="scrollUp"] {
+    top: 0;
+    -webkit-animation: scrollUp 750ms 1 ease-out;
+    animation: scrollUp 750ms 1 ease-out;
+}
+
+@-webkit-keyframes scrollUp {
+    0% {
+        top: 100%;
+    }
+    100% {
+        top: 0%;
+    }
+}
+
+@keyframes scrollUp {
+    0% {
+        top: 100%;
+    }
+    100% {
+        top: 0%;
+    }
+}
+
+[data-state="scrollUpExtra"] {
+    top: 10%;
+    -webkit-animation: scrollUpExtra 750ms 1 ease-out;
+    animation: scrollUpExtra 750ms 1 ease-out;
+}
+
+@-webkit-keyframes scrollUpExtra {
+    0% {
+        top: 100%;
+    }
+    100% {
+        top: 10%;
+    }
+}
+
+@keyframes scrollUpExtra {
+    0% {
+        top: 100%;
+    }
+    100% {
+        top: 10%;
+    }
+}
+
+[data-state="scrollDown"] {
+    top: 100%;
+    -webkit-animation: scrollDown 750ms 1 ease-out;
+    animation: scrollDown 750ms 1 ease-out;
+}
+
+@-webkit-keyframes scrollDown {
+    0% {
+        top: 0%;
+    }
+    100% {
+        top: 100%;
+    }
+}
+
+@keyframes scrollDown {
+    0% {
+        top: 0%;
+    }
+    100% {
+        top: 100%;
     }
 }
 /*-----------Height & Width-----------*/
@@ -424,47 +529,10 @@ header img {
     margin: 0 !important;
     padding: 2% 3%;
 }
-/*-----------------------index.html-----------------------*/
-
-#pageA,
-#pageB,
-#pageC {
-    position: absolute;
-    top: 0;
-    z-index: 100;
-    width: 100%;
-    height: 100%;
-}
-
-#pageA {
-    left: 0;
-    background: green;
-}
-
-#pageB,
-#pageC {
-    left: -100%;
-}
-
-#modal {
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    left: 0;
-    margin: 5%;
-    border: 1px solid red;
-    width: 90%;
-    height: 90%;
-    border-radius: 5px;
-}
-
-#modal[data-state="none"] {
-    display: none;
-}
 
 .legalInfo,
 .legalInfoV2 {
-    position: absolute;
+    position: fixed;
     font-size: 0.9rem;
     bottom: 5%;
     color: #fff;
@@ -472,7 +540,6 @@ header img {
 
 .legalInfoV2 {
     color: #000;
-    bottom: 20%;
 }
 /*-----------languageSection-----------*/
 
@@ -524,47 +591,11 @@ h2 {
 .whiteCircle {
     background: url(../img/svgs/whiteCircle.svg) no-repeat center center;
 }
-/*-----------signUpFormSection-----------*/
+/*-----------logInSection-----------*/
 
-#signUpForm input,
-#signUpForm select,
-#linkClickedLogInSection input,
-#modal input {
-    width: 86%;
-    margin: 0 5% 5%;
-    padding: 2%;
-    font-size: 1rem;
-    font-family: 'Avenir-Light', cursive;
-    border-radius: 10px;
-    color: #a7a6a6;
-    border: 1px solid #a9a8a8;
-    background: url(../img/svgs/addNewButton.svg) no-repeat 95% center;
-    background-size: 25px;
-}
-
-#linkClickedLogInSection input,
-#modal input {
-    background: none;
-}
-
-input[type="submit"],
-#linkClickedLogInSection input[type="submit"],
-#savingsGoalSubmitBtn,
-#linkClickedSignUpFormSection #signUpFormSubmit,
-#modal input[type="submit"] {
-    position: absolute;
-    right: 0;
-    bottom: 5%;
-    color: #fff;
-    width: 70%;
-    margin: 0 15%;
-    background: #005ca9;
-}
-
-#signUpForm #signUpFormSubmit,
-resetUser {
-    color: #fff;
-    background: #005ca9;
+.closeTitle {
+    border-bottom: 1px solid #e8edf0;
+    margin-bottom: 1rem;
 }
 
 #signUpForm {
@@ -575,20 +606,45 @@ resetUser {
     border-radius: 5px;
 }
 
+#signUpForm input,
+#signUpForm select,
+#logInSection input,
+#modal input {
+    width: 80%;
+    margin: 0 7.5% 5%;
+    padding: 1rem 2%;
+    font-size: 1rem;
+    font-family: 'Avenir-Light', cursive;
+    border-radius: 10px;
+    color: #a7a6a6;
+    border: 1px solid #a9a8a8;
+    background: url(../img/svgs/addNewButton.svg) no-repeat 95% center;
+    background-size: 25px;
+}
+
+#logInSection input[type="submit"],
+resetUser {
+    width: 85%;
+    color: #fff;
+    background: #005ca9;
+}
+
+#splitForm[data-state="none"] {
+    left: 100%;
+}
+
 #splitForm {
     width: 100%;
     height: 100%;
     position: absolute;
-    left: 100%;
 }
 
-#closeBtn, 
-#closeSignUp {
-    font-size: 1.5rem;
-    padding-left: 1rem;
-    width: 15%;
+#closeBtn {
+    font-size: 2rem;
+    width: 20%;
+    margin: 0;
     float: left;
-    color: blue;
+    color: black;
 }
 
 h5 {
@@ -600,20 +656,37 @@ h5 {
 .clear {
     clear: both;
 }
+
+.lineAcross {
+    font-size: 1.25rem;
+    color: #000;
+    padding: 1rem 0;
+}
 /*-----------------------savingsGoal.html-----------------------*/
 
-.savingsGoalName {
-    width: 90%;
-    margin: 0% 5% 10%;
-    font-size: 3rem;
-    text-align: center;
-    border: none;
-    color: #729dd2;
-    background: #0f79be;
+.changeName {
+    width: 85%;
+    margin: 0 7.5%;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
-#savingsGoalForm div p {
+.changeName input {
+    width: 100%;
+    padding: 0.5rem 0;
+    font-size: 4rem;
     font-family: 'Avenir-Book', cursive;
+    text-align: center;
+    color: #d5dcef;
+    border: none;
+}
+
+.changeName p {
+    width: 100%;
+    padding: 0.5rem 0;
+    font-size: 1.25rem;
+    background: #e8edf0;
 }
 
 #savingsGoalSubmitBtn {
@@ -807,7 +880,7 @@ h5 {
     color: #0f79be;
 }
 #drop {
-    display: none;
+    display: block;
     position: fixed;
     bottom: 0;
     z-index: 100;

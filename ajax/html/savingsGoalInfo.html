@@ -7,18 +7,20 @@
 </header>
 
 <section class="blueBkr" id="savingsGoalSection">
+    <h5>What are you saving for?</h5>
     <form class="h50w100" id="savingsGoalForm">
-        <p class="txt2rem">I am saving for:</p>
-        <input id="goalName" class="savingsGoalName" type="text" name="savingsGoalName" placeholder="Your Item">
-
-        <div class="h50w43 bkrTwoColors borderRadius left">
-            <input id="goalPrice" class="specialInput " type="text" name="savingsGoalDollarValue" placeholder="$" pattern="([1-9])+(?:-?\d){4,}">
-            <p class="bottom blueColor">Cost</p>
+        <div class="changeName">
+            <input id="goalName" class="savingsGoalName" type="text" name="savingsGoalName" placeholder="Vacation">
+            <p>Goal Name</p>
+        </div>
+        <div class="changeName">
+            <input id="goalPrice" type="text" name="savingsGoalDollarValue" placeholder="$" pattern="([1-9])+(?:-?\d){4,}">
+            <p class="blueColor">Cost</p>
         </div>
 
-        <div class="h50w43 bkrTwoColors borderRadius right">
-            <input id="deadline" class="specialInput" type="date" name="savingsGoalDeadline">
-            <p class="bottom blueColor">Deadline</p>
+        <div class="changeName">
+            <input id="deadline" type="date" name="savingsGoalDeadline">
+            <p class="blueColor">Deadline</p>
         </div>
 
         <input id="savingsGoalSubmitBtn" class="borderRadius" type="submit" value="Save Goal">

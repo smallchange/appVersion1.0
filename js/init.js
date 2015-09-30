@@ -10,63 +10,34 @@ var init = {
         return;
     },
     initChecks: function (dynamicCase) {
-        var profileExists = dynamicCase,
-            noProfile = dynamicCase,
-            guestExists = dynamicCase,
-            noGuest = dynamicCase,
-            challengeExists = dynamicCase,
-            noChallenges = dynamicCase;
-
+        console.log(dynamicCase);
         switch (dynamicCase) {
-        case profileExists:
-            gui.appendNewHtml('newUser', $('#slideZero'))
+        case "profileExists":
+            gui.htmlToDom('html', 'newUser', 'slideNegative');
             break;
-        case noProfile:
-            gui.appendNewHtml('newUser', $('#slideZero'))
+        case "noProfile":
+            gui.htmlToDom('html', 'intro', 'slideZero', null);
+            //init.initChecks(validate.challengesCreated());
             break;
-        case guestExists:
-            init.check(validate.challengesCreated());
-            break;
-        case noGuest:
-            gui.slideSwitch();
-            //skip to initail setup
-            break;
-        case challengeExists:
+        case "challengeExists":
             gui.slideSwitch();
             //skip to home
             break;
-        case noChallenges:
+        case "noChallenges":
             gui.slideSwitch();
             //skip to choose challenge
             break;
         }
     },
     initialize: function () {
-        //var t = function () { gui.getval( ) 
-        /*
-                var p = gui.getInfo('appInfo', 'json', 'profile', function(value){
-                    return value;
-                });
-                */
-        var value = "";
-        (function () {
-            $.getJSON('ajax/json/appInfo.json', function (data) {}).done(function (data) {
-                value = data.appInfo[0].profile;
-                /*$.each(data, function (i , k) {
-                    var obj = data.appInfo;
-                    console.log(obj[0].profile);
-                    return obj[0].profile;
-                });*/
+        gui.setView();
+        //getting value from profile key in JSON
+        gui.returnJson('appInfo', 'json', 'profile', function (info) {
+            //CHECK if there is a profile
+            init.initChecks(info);
 
-                return;
-            }).fail(function (jqxhr, textStatus, error) {
-                var err = textStatus + ", " + error;
-                console.log("Request Failed: " + err);
-            });
-        })();
-        //gui.getInfoTest('appInfo', 'json', 'profile', function () {});
-        console.log(value);
-        init.initChecks(value);
+            //serverActions.getLocalInfo(5, 4, 1)
+        });
     }
 };
 init.initialize();
